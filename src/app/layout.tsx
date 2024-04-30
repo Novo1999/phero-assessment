@@ -1,4 +1,5 @@
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import ToastProvider from '@/providers/ToastProvider'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <ReactQueryProvider>
-          <AntdRegistry>{children}</AntdRegistry>
+          <ToastProvider>
+            <AntdRegistry>{children}</AntdRegistry>
+          </ToastProvider>
         </ReactQueryProvider>
       </body>
     </html>

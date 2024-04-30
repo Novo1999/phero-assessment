@@ -4,12 +4,15 @@ import validateEmailField from '@/utils/validateEmail'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { Bounce, toast } from 'react-toastify'
 
 const LoginForm: React.FC = () => {
   const { users, setCurrentLoggedInUser, setError, error } = useUserStore(
     (state) => state
   )
+  const router = useRouter()
 
   const onSubmit = (values: any) => {
     // find the user
@@ -23,6 +26,18 @@ const LoginForm: React.FC = () => {
       setError('Wrong password')
     } else {
       setCurrentLoggedInUser(matchedUser.username)
+      toast.success('Logged in successfully', {
+        position: 'bottom-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      router.push('/')
     }
   }
 
