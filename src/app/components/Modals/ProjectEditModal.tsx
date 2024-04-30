@@ -1,25 +1,26 @@
 import { Modal } from 'antd'
 import { Dispatch, SetStateAction } from 'react'
+import ProjectEditForm from '../Project/ProjectEditForm'
 
-const TaskModal = ({
+const ProjectEditModal = ({
   modalOpen,
   setModalOpen,
+  id,
 }: {
   modalOpen: boolean
   setModalOpen: Dispatch<SetStateAction<boolean>>
+  id: number
 }) => {
   return (
     <Modal
-      title='Vertically centered modal dialog'
+      title='Edit Project'
       centered
       open={modalOpen}
       onOk={() => setModalOpen(false)}
       onCancel={() => setModalOpen(false)}
     >
-      <p>some contents...</p>
-      <p>some contents...</p>
-      <p>some contents...</p>
+      <ProjectEditForm setModalOpen={setModalOpen} id={id} />
     </Modal>
   )
 }
-export default TaskModal
+export default ProjectEditModal

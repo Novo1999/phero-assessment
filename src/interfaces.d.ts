@@ -27,12 +27,15 @@ interface SidebarStoreActions {
 interface Projects {
   projects: Project[]
   loadProjects: (projects: Project[]) => void
+  deleteProject: (id: number) => void
   reorderTask: (
     projectId: number,
     sourceId: number,
     newStatus: 'To Do' | 'In Progress' | 'Done'
   ) => void
+  updateProjectName: (projectId: number, newName: string) => void
   addTask: (projectId: number, values: Task) => void
+  addActivity: (projectId: number, activity: string) => void
 }
 
 // others

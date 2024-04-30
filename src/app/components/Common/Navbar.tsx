@@ -1,29 +1,39 @@
 'use client'
-import { Layout, Menu } from 'antd'
-import Link from 'next/link'
-import React from 'react'
-
-const { Header } = Layout
+import useSidebarStore from '@/store/sidebar'
+import { Header } from 'antd/es/layout/layout'
+import { motion } from 'framer-motion'
 
 const Navbar: React.FC = () => {
+  const { open } = useSidebarStore()
+
   return (
-    <Header className='!px-0' style={{ height: '64px' }}>
-      <div className='logo' />
-      <Menu theme='light' mode='horizontal' defaultSelectedKeys={['1']}>
-        <Menu.Item key='1'>
-          <Link href='/'>Home</Link>
-        </Menu.Item>
-        <Menu.Item key='2'>
-          <Link href='/about'>About</Link>
-        </Menu.Item>
-        <Menu.Item key='3'>
-          <Link href='/services'>Services</Link>
-        </Menu.Item>
-        <Menu.Item key='4'>
-          <Link href='/contact'>Contact</Link>
-        </Menu.Item>
-      </Menu>
-    </Header>
+    <>
+      <div className='hidden lg:block'>
+        <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
+          <div className='logo' />
+          <nav className='h-full bg-white p-4'>
+            <motion.p
+              className='text-xl relative sm:text-2xl font-bold ml-2 w-fit mt-2'
+              initial={{ x: 0 }}
+              animate={{ x: open ? '384px' : 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            >
+              Project Management Dashboard
+            </motion.p>
+          </nav>
+        </Header>
+      </div>
+      <div className='block lg:hidden'>
+        <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
+          <div className='logo' />
+          <nav className='h-full bg-white p-4'>
+            <p className='text-xl relative sm:text-2xl font-bold ml-2 w-fit mt-2'>
+              Project Management Dashboard
+            </p>
+          </nav>
+        </Header>
+      </div>
+    </>
   )
 }
 

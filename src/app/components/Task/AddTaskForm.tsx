@@ -6,7 +6,7 @@ import { useState } from 'react'
 const { Option } = Select
 
 const AddTaskForm = ({ id }: { id: string }) => {
-  const { projects, addTask } = useProjectsStore()
+  const { projects, addTask, addActivity } = useProjectsStore()
   console.log('🚀 ~ AddTaskForm ~ projects:', projects)
   const currentProject = projects.find((project) => project.id === Number(id))
 
@@ -18,6 +18,7 @@ const AddTaskForm = ({ id }: { id: string }) => {
 
     console.log(values)
     addTask(Number(id), values)
+    addActivity(Number(id), `You added a new task ${values.title}`)
     form.resetFields()
 
     setLoading(false)

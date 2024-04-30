@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { GrDrag } from 'react-icons/gr'
-import TaskModal from './TaskModal'
+import TaskModal from '../Modals/TaskModal'
 
 const TaskItem = ({ task }: { task: Task }) => {
   const { open } = useSidebarStore()
@@ -23,7 +23,7 @@ const TaskItem = ({ task }: { task: Task }) => {
   }
   return (
     <motion.div
-      className={`p-1 relative text-slate-800 ${
+      className={`p-1 relative text-slate-800 hover:bg-blue-600 transition-colors duration-300 ${
         isDragging ? '' : 'border-2'
       } rounded shadow-lg mx-2 mt-2 cursor-pointer`}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -34,7 +34,7 @@ const TaskItem = ({ task }: { task: Task }) => {
             onClick={() => setModalOpen(true)}
             {...provided.draggableProps}
             ref={provided.innerRef}
-            className={`flex justify-between ${
+            className={`flex justify-between  ${
               isDragging ? 'border-2' : ''
             } items-center p-1`}
           >
@@ -79,7 +79,11 @@ const TaskItem = ({ task }: { task: Task }) => {
           {completed ? 'Completed' : 'Incomplete'}
         </p>
       </div> */}
-      <TaskModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <TaskModal
+        task={task}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+      />
     </motion.div>
   )
 }

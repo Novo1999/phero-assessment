@@ -58,7 +58,6 @@ const Sidebar: React.FC = () => {
   return (
     <div className='flex'>
       <Drawer
-        // style={{ marginTop: '64px' }}
         mask={false}
         width={320}
         title={

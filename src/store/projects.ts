@@ -9,6 +9,35 @@ const useProjectsStore = create<Projects>((set) => ({
       projects,
     })),
 
+  deleteProject: (id) => {
+    set((state) => {
+      const updatedProjects = state.projects.filter(
+        (project) => project.id !== id
+      )
+      return {
+        ...state,
+        projects: updatedProjects,
+      }
+    })
+  },
+  updateProjectName: (projectId, newName) =>
+    set((state) => {
+      const projectIndex = state.projects.findIndex(
+        (project) => project.id === projectId
+      )
+
+      // if project exists
+      if (projectIndex !== -1) {
+        const updatedProjects = [...state.projects]
+        updatedProjects[projectIndex].projectName = newName
+        return {
+          ...state,
+          projects: updatedProjects,
+        }
+      } else {
+        return state
+      }
+    }),
   reorderTask: (projectId, sourceId, newStatus) =>
     set((state) => {
       const projectIndex = state.projects.findIndex(
@@ -64,6 +93,32 @@ const useProjectsStore = create<Projects>((set) => ({
           project.tasks = updatedTasks
           return project
         })
+
+        return {
+          ...state,
+          projects: updatedProjects,
+        }
+      } else {
+        return state
+      }
+    }),
+
+  addActivity: (projectId: number, activity: string) =>
+    set((state) => {
+      const projectIndex = state.projects.findIndex(
+        (project) => project.id === projectId
+      )
+
+      if (projectIndex !== -1) {
+        const updatedProjects = [...state.projects]
+
+        const updatedRecentActivities = [
+          ...updatedProjects[projectIndex].recentActivities,
+        ]
+
+        updatedRecentActivities.push(activity)
+
+        updatedProjects[projectIndex].recentActivities = updatedRecentActivities
 
         return {
           ...state,

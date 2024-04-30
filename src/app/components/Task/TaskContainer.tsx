@@ -7,7 +7,7 @@ import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { TASK_STATUS } from '@/utils/constants'
 const TaskContainer = ({ id }: { id: string }) => {
-  const { projects, reorderTask } = useProjectsStore()
+  const { projects, reorderTask, addActivity } = useProjectsStore()
   const { open } = useSidebarStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
@@ -27,7 +27,17 @@ const TaskContainer = ({ id }: { id: string }) => {
       | 'In Progress'
       | 'Done'
 
-    reorderTask(Number(id), taskId, newStatus)
+    console.log(result)
+
+    if (source.index !== destination.index) {
+      reorderTask(Number(id), taskId, newStatus)
+      addActivity(
+        Number(id),
+        `You moved ${
+          currentProject?.tasks.find((task) => task.id === taskId)?.title
+        } to ${newStatus} Status box`
+      )
+    }
   }
 
   return (
@@ -42,7 +52,7 @@ const TaskContainer = ({ id }: { id: string }) => {
             <Droppable droppableId={`droppable-${status}`} type='task'>
               {(provided, snapshot) => (
                 <div
-                  className={`lg:w-60 xl:w-80 min-h-48 ${
+                  className={`lg:w-60 xl:w-80 min-h-48 max-h-48 overflow-y-auto ${
                     snapshot.isDraggingOver
                       ? 'bg-gradient-to-r from-indigo-500 to-blue-500'
                       : 'bg-gradient-to-r from-blue-600 to-violet-600 '
