@@ -1,32 +1,31 @@
 'use client'
 import useUserStore from '@/store/user'
-import validateEmail from '@/utils/validateEmail'
+import { default as validateEmailField } from '@/utils/validateEmail'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const RegisterForm: React.FC = () => {
   const { users, addNewUser, setError, error } = useUserStore((state) => state)
   console.log('🚀 ~ users:', users)
+  const router = useRouter()
 
-  const onFinish = (values: any) => {
+  const onSubmit = (values: any) => {
     const userAlreadyExists = users.find((user) => user.email === values.email)
     if (userAlreadyExists) {
       setError('User already exists')
     } else {
       addNewUser(values)
+      router.push('/login')
     }
   }
 
-  const validateEmailField = async (_: any, value: string) => {
-    if (value && !validateEmail(value)) {
-      throw new Error('Please enter a valid email address')
-    }
-  }
+  // validate the email field to check if email is valid as user types
 
   return (
-    <Form name='normal_login' className='login-form' onFinish={onFinish}>
+    <Form name='normal_login' className='login-form' onFinish={onSubmit}>
       <Form.Item
         name='email'
         rules={[

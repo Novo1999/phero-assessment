@@ -1,25 +1,47 @@
 'use client'
+import useUserStore from '@/store/user'
+import validateEmailField from '@/utils/validateEmail'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Checkbox, Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 
 const LoginForm: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log('Received values of form: ', values)
+  const { users, setCurrentLoggedInUser, setError, error } = useUserStore(
+    (state) => state
+  )
+
+  const onSubmit = (values: any) => {
+    // find the user
+    const matchedUser = users.find((user) => user.email === values.email)
+    // see if password is matched
+    const passwordMatched = matchedUser?.password === values.password
+    // log in the user if everything is alright
+    if (!matchedUser) {
+      setError('User does not exist')
+    } else if (!passwordMatched) {
+      setError('Wrong password')
+    } else {
+      setCurrentLoggedInUser(matchedUser.username)
+    }
   }
 
   return (
-    <Form name='normal_login' className='login-form' onFinish={onFinish}>
+    <Form name='normal_login' className='login-form' onFinish={onSubmit}>
       <Form.Item
-        name='username'
-        rules={[{ required: true, message: 'Please input your Username!' }]}
+        name='email'
+        rules={[
+          { required: true, message: 'Please input your Email!' },
+          { validator: validateEmailField },
+        ]}
+        validateStatus=''
       >
         <Input
           prefix={<UserOutlined className='site-form-item-icon' />}
-          placeholder='Username'
+          placeholder='Email'
         />
       </Form.Item>
+
       <Form.Item
         name='password'
         rules={[{ required: true, message: 'Please input your Password!' }]}
@@ -37,6 +59,7 @@ const LoginForm: React.FC = () => {
         </Button>{' '}
         Or <Link href='/register'>Register now!</Link>
       </Form.Item>
+      {error && <p className='text-red-500 font-semibold'>{error}</p>}
     </Form>
   )
 }
