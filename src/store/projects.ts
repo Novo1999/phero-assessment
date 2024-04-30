@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { create } from 'zustand'
 
 const useProjectsStore = create<Projects>((set) => ({
@@ -49,7 +50,20 @@ const useProjectsStore = create<Projects>((set) => ({
 
         const updatedTasks = [...updatedProjects[projectIndex].tasks]
 
-        updatedTasks.push(values)
+        const formattedDueDate = moment(values.dueDate).format('YYYY-MM-DD')
+        const formattedDeadline = moment(values.deadline).format('YYYY-MM-DD')
+
+        updatedTasks.push({
+          ...values,
+          dueDate: formattedDueDate,
+          deadline: formattedDeadline,
+          id: updatedProjects[projectIndex].tasks.length + 1,
+        })
+
+        updatedProjects.map((project) => {
+          project.tasks = updatedTasks
+          return project
+        })
 
         return {
           ...state,

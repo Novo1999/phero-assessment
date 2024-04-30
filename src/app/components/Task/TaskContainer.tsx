@@ -42,15 +42,15 @@ const TaskContainer = ({ id }: { id: string }) => {
             <Droppable droppableId={`droppable-${status}`} type='task'>
               {(provided, snapshot) => (
                 <div
-                  className='lg:w-60 xl:w-80'
+                  className={`lg:w-60 xl:w-80 min-h-48 ${
+                    snapshot.isDraggingOver
+                      ? 'bg-gradient-to-r from-indigo-500 to-blue-500'
+                      : 'bg-gradient-to-r from-blue-600 to-violet-600 '
+                  } p-2`}
                   ref={provided.innerRef}
-                  style={{
-                    backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey',
-                    minHeight: '200px',
-                  }}
                   {...provided.droppableProps}
                 >
-                  <p className='text-blue-500'>{status}</p>
+                  <p className='text-slate-200'>{status}</p>
                   {currentProject?.tasks
                     .filter((task) => task.status === status)
                     .map((task) => (

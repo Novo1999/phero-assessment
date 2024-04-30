@@ -1,27 +1,51 @@
 'use client'
 import useSidebarStore from '@/store/sidebar'
 import { motion } from 'framer-motion'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { useState } from 'react'
+import { Draggable } from 'react-beautiful-dnd'
+import { GrDrag } from 'react-icons/gr'
+import TaskModal from './TaskModal'
 
 const TaskItem = ({ task }: { task: Task }) => {
   const { open } = useSidebarStore()
   const { title, description, assignee, dueDate, id, status } = task
+  const [isDragging, setIsDragging] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
+  console.log(modalOpen)
+
+  const handleMouseDown = () => {
+    setIsDragging(true)
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
   return (
     <motion.div
-      className='p-1 relative text-slate-800 border-2 rounded shadow-lg'
+      className={`p-1 relative text-slate-800 ${
+        isDragging ? '' : 'border-2'
+      } rounded shadow-lg mx-2 mt-2 cursor-pointer`}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       <Draggable draggableId={`draggable-${status}-${id}`} index={id}>
-        {(provided, snapshot) => (
+        {(provided) => (
           <div
-            ref={provided.innerRef}
+            onClick={() => setModalOpen(true)}
             {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            className='mb-4'
+            ref={provided.innerRef}
+            className={`flex justify-between ${
+              isDragging ? 'border-2' : ''
+            } items-center p-1`}
           >
-            <h2 className='text-lg font-semibold'>Task Title</h2>
-            <p className='text-gray-800'>{title}</p>
+            <p className='text-gray-200'>{title}</p>
+            <div
+              {...provided.dragHandleProps}
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+            >
+              <GrDrag className='text-slate-200' />
+            </div>
           </div>
         )}
       </Draggable>
@@ -55,6 +79,7 @@ const TaskItem = ({ task }: { task: Task }) => {
           {completed ? 'Completed' : 'Incomplete'}
         </p>
       </div> */}
+      <TaskModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </motion.div>
   )
 }

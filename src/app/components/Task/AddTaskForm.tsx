@@ -7,6 +7,7 @@ const { Option } = Select
 
 const AddTaskForm = ({ id }: { id: string }) => {
   const { projects, addTask } = useProjectsStore()
+  console.log('🚀 ~ AddTaskForm ~ projects:', projects)
   const currentProject = projects.find((project) => project.id === Number(id))
 
   const [form] = Form.useForm()
@@ -14,13 +15,11 @@ const AddTaskForm = ({ id }: { id: string }) => {
 
   const handleSubmit = (values: Task) => {
     setLoading(true)
-    try {
-      console.log(values)
-      addTask(Number(id), values)
-      form.resetFields()
-    } catch (error) {
-      console.error('Error adding task:', error)
-    }
+
+    console.log(values)
+    addTask(Number(id), values)
+    form.resetFields()
+
     setLoading(false)
   }
 
