@@ -1,3 +1,4 @@
+import useProjectsStore from '@/store/projects'
 import { PROJECT_LIST_URL } from '@/utils/constants'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
@@ -12,7 +13,15 @@ const getProjects = async () => {
 }
 
 const useGetProjects = () => {
-  const query = useQuery({ queryKey: ['projects'], queryFn: getProjects })
+  const { loadProjects } = useProjectsStore((state) => state)
+  const query = useQuery({
+    queryKey: ['projects'],
+    queryFn: async () => {
+      const projects = await getProjects()
+      loadProjects(projects)
+      return projects
+    },
+  })
 
   return query
 }

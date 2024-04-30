@@ -1,15 +1,17 @@
 # PAGES
 
-- Register
-- Login
+<!-- - Register -->
+<!-- - Login -->
+
 - Home
 - Project details
 
 # TASK
 
-- Login
+<!-- - Login
 - Register
-- Show projects with options(view, edit, delete)
+- Show projects with options(view, edit, delete) -->
+
 - project infos -> tasks, team members, recent activities
 - add new tasks, assign team members
 - tasks can be added, edited, marked as completed

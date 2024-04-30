@@ -1,18 +1,18 @@
 'use client'
 import useGetProjects from '@/hooks/useGetProjects'
-import type { DrawerProps } from 'antd'
+import useSidebarStore from '@/store/sidebar'
 import { Drawer } from 'antd'
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React from 'react'
+import { RxCross1 } from 'react-icons/rx'
 import EmptyResponse from '../ui/EmptyResponse'
 import Error from '../ui/ErrorResponse'
 import ProjectSkeleton from '../ui/Skeletons/ProjectSkeleton'
 import ProjectCard from './ProjectCard'
 
 const Sidebar: React.FC = () => {
-  const [open, setOpen] = useState(true)
-  const [placement, setPlacement] = useState<DrawerProps['placement']>('left')
   const { data: projects, isLoading, isError, error } = useGetProjects()
+  const { open, toggleSidebar } = useSidebarStore((state) => state)
 
   let content = null
 
@@ -47,28 +47,33 @@ const Sidebar: React.FC = () => {
     )
   }
 
-  const showDrawer = () => {
-    setOpen(true)
-  }
-
   const onClose = () => {
-    setOpen(false)
+    toggleSidebar(false)
   }
 
   return (
-    <>
+    <div className='flex'>
       <Drawer
+        style={{ marginTop: '64px' }}
+        mask={false}
         width={320}
-        title='Projects'
-        placement={placement}
+        title={
+          <div className='flex justify-between'>
+            <p>Projects</p>
+            <button onClick={onClose}>
+              <RxCross1 />
+            </button>
+          </div>
+        }
+        placement='left'
         closable={false}
         onClose={onClose}
         open={open}
-        key={placement}
+        key='drawer'
       >
         {content}
       </Drawer>
-    </>
+    </div>
   )
 }
 

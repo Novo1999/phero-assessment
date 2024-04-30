@@ -4,6 +4,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons'
 import { Avatar, Card } from 'antd'
+import Link from 'next/link'
 import React from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { GrFormView } from 'react-icons/gr'
@@ -13,12 +14,14 @@ const { Meta } = Card
 
 const ProjectCard = ({ project }: { project: Project }) => {
   console.log(project)
-  const { projectName, createdDate } = project
+  const { projectName, createdDate, id } = project
   return (
     <Card
       style={{ width: 250 }}
       actions={[
-        <GrFormView className='text-lg m-auto' key='view' />,
+        <Link key='view' href={`/project/${id}`}>
+          <GrFormView className='text-lg m-auto' />
+        </Link>,
         <BiEdit className='text-base m-auto' key='edit' />,
         <MdDelete className='text-base m-auto' key='delete' />,
       ]}

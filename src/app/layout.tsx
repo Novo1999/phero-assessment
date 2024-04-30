@@ -3,6 +3,8 @@ import ToastProvider from '@/providers/ToastProvider'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Navbar from './components/Common/Navbar'
+import ProjectList from './components/Project/ProjectList'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,7 +24,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReactQueryProvider>
           <ToastProvider>
-            <AntdRegistry>{children}</AntdRegistry>
+            <AntdRegistry>
+              <Navbar />
+              {children}
+              <ProjectList />
+            </AntdRegistry>
           </ToastProvider>
         </ReactQueryProvider>
       </body>

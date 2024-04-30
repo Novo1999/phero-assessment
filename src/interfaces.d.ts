@@ -1,3 +1,4 @@
+// store
 interface User {
   email: string
   password: string
@@ -16,6 +17,19 @@ interface UserStoreActions {
   setCurrentLoggedInUser: (user: string) => void
 }
 
+interface SidebarStore {
+  open: boolean
+}
+interface SidebarStoreActions {
+  toggleSidebar: (isOpen: boolean) => void
+}
+
+interface Projects {
+  projects: Project[]
+  loadProjects: (projects: Project[]) => void
+}
+
+// others
 interface Task {
   id: number
   description: string
