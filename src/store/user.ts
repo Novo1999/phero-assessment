@@ -1,23 +1,5 @@
 import { create } from 'zustand'
 
-interface User {
-  email: string
-  password: string
-  username: string
-}
-
-interface UserStoreState {
-  users: User[]
-  error: string
-  currentLoggedInUser: string
-}
-
-interface UserStoreActions {
-  addNewUser: (newUser: User) => void
-  setError: (message: string) => void
-  setCurrentLoggedInUser: (user: string) => void
-}
-
 type UserStore = UserStoreState & UserStoreActions
 
 const useUserStore = create<UserStore>((set) => ({
