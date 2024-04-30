@@ -28,23 +28,17 @@ interface Projects {
   projects: Project[]
   loadProjects: (projects: Project[]) => void
   reorderTask: (
+    projectId: number,
     sourceId: number,
     newStatus: 'To Do' | 'In Progress' | 'Done'
   ) => void
-}
-
-interface Task {
-  id: number
-  title: string
-  description: string
-  assignedTo?: string[]
-  dueDate?: string
-  completed: boolean
+  addTask: (projectId: number, values: Task) => void
 }
 
 // others
 interface Task {
   id: number
+  title: string
   description: string
   deadline: string
   dueDate: string

@@ -9,7 +9,6 @@ import React from 'react'
 
 const RegisterForm: React.FC = () => {
   const { users, addNewUser, setError, error } = useUserStore((state) => state)
-  console.log('🚀 ~ users:', users)
   const router = useRouter()
 
   const onSubmit = (values: any) => {

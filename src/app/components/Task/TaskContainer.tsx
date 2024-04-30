@@ -4,10 +4,11 @@ import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 
 import TaskItem from '@/app/components/Task/TaskItem'
 import useProjectsStore from '@/store/projects'
+import useSidebarStore from '@/store/sidebar'
 import { TASK_STATUS } from '@/utils/constants'
 const TaskContainer = ({ id }: { id: string }) => {
   const { projects, reorderTask } = useProjectsStore()
-  console.log(projects)
+  const { open } = useSidebarStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
   const onDragStart = () => {
@@ -26,23 +27,25 @@ const TaskContainer = ({ id }: { id: string }) => {
       | 'In Progress'
       | 'Done'
 
-    console.log(result)
-
-    reorderTask(taskId, newStatus)
+    reorderTask(Number(id), taskId, newStatus)
   }
 
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+    <div
+      className={`grid grid-cols-1 sm:grid-cols-2 ${
+        open ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
+      } xl:grid-cols-3 gap-4`}
+    >
       <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
         {TASK_STATUS.map((status) => (
           <div key={status}>
             <Droppable droppableId={`droppable-${status}`} type='task'>
               {(provided, snapshot) => (
                 <div
+                  className='lg:w-60 xl:w-80'
                   ref={provided.innerRef}
                   style={{
                     backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey',
-                    width: '100%',
                     minHeight: '200px',
                   }}
                   {...provided.droppableProps}

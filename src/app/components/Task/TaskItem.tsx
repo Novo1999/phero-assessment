@@ -5,8 +5,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 
 const TaskItem = ({ task }: { task: Task }) => {
   const { open } = useSidebarStore()
-  const { title, description, assignedTo, dueDate, completed, id, status } =
-    task
+  const { title, description, assignee, dueDate, id, status } = task
 
   return (
     <motion.div

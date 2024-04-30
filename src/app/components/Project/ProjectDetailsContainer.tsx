@@ -15,7 +15,7 @@ const ProjectDetailsContainer = ({ children }: { children: ReactNode }) => {
         {children}
       </motion.div>
       <motion.div
-        className='text-black relative px-12 hidden lg:block'
+        className='text-black relative pl-12 hidden lg:block'
         initial={{ left: 0 }}
         animate={{ left: open ? '384px' : '0px' }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
