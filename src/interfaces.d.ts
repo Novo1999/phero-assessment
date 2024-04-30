@@ -27,6 +27,10 @@ interface SidebarStoreActions {
 interface Projects {
   projects: Project[]
   loadProjects: (projects: Project[]) => void
+  reorderTask: (
+    sourceId: number,
+    newStatus: 'To Do' | 'In Progress' | 'Done'
+  ) => void
 }
 
 interface Task {
@@ -34,7 +38,7 @@ interface Task {
   title: string
   description: string
   assignedTo?: string[]
-  dueDate?: Date
+  dueDate?: string
   completed: boolean
 }
 

@@ -1,5 +1,6 @@
 'use client'
 import useGetProjects from '@/hooks/useGetProjects'
+import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { Drawer } from 'antd'
 import { motion } from 'framer-motion'
@@ -11,7 +12,10 @@ import ProjectSkeleton from '../ui/Skeletons/ProjectSkeleton'
 import ProjectCard from './ProjectCard'
 
 const Sidebar: React.FC = () => {
-  const { data: projects, isLoading, isError, error } = useGetProjects()
+  const { data, isLoading, isError } = useGetProjects()
+
+  const { projects } = useProjectsStore()
+
   const { open, toggleSidebar } = useSidebarStore((state) => state)
 
   let content = null
@@ -34,10 +38,10 @@ const Sidebar: React.FC = () => {
     content = <Error message='Could not get projects' />
   }
 
-  if (!isLoading && !isError && projects?.length === 0) {
+  if (!isLoading && !isError && data?.length === 0) {
     content = <EmptyResponse message='No projects found' />
   }
-  if (!isLoading && !isError && projects?.length > 0) {
+  if (!isLoading && !isError && data?.length > 0) {
     content = (
       <div className='flex flex-col gap-4'>
         {projects.map((project: Project) => (
@@ -54,7 +58,7 @@ const Sidebar: React.FC = () => {
   return (
     <div className='flex'>
       <Drawer
-        style={{ marginTop: '64px' }}
+        // style={{ marginTop: '64px' }}
         mask={false}
         width={320}
         title={

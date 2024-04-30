@@ -3,7 +3,7 @@ import { create } from 'zustand'
 type SidebarStoreType = SidebarStore & SidebarStoreActions
 
 const useSidebarStore = create<SidebarStoreType>((set) => ({
-  open: true,
+  open: false,
   toggleSidebar: (isOpen: boolean) =>
     set((state) => ({
       ...state,

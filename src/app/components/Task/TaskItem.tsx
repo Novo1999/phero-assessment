@@ -1,22 +1,32 @@
 'use client'
 import useSidebarStore from '@/store/sidebar'
 import { motion } from 'framer-motion'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
 
 const TaskItem = ({ task }: { task: Task }) => {
   const { open } = useSidebarStore()
-  const { title, description, assignedTo, dueDate, completed } = task
+  const { title, description, assignedTo, dueDate, completed, id, status } =
+    task
 
   return (
     <motion.div
-      className='p-8 relative text-slate-800 border-2 border-red-500 rounded shadow-lg'
+      className='p-1 relative text-slate-800 border-2 rounded shadow-lg'
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
-      <h1 className='text-2xl font-bold mb-4'>Task Details</h1>
-      <div className='mb-4'>
-        <h2 className='text-lg font-semibold mb-2'>Task Title</h2>
-        <p className='text-gray-800'>{title}</p>
-      </div>
-      <div className='mb-4'>
+      <Draggable draggableId={`draggable-${status}-${id}`} index={id}>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            className='mb-4'
+          >
+            <h2 className='text-lg font-semibold'>Task Title</h2>
+            <p className='text-gray-800'>{title}</p>
+          </div>
+        )}
+      </Draggable>
+      {/* <div className='mb-4'>
         <h2 className='text-lg font-semibold mb-2'>Description</h2>
         <p className='text-gray-800'>{description}</p>
       </div>
@@ -45,7 +55,7 @@ const TaskItem = ({ task }: { task: Task }) => {
         >
           {completed ? 'Completed' : 'Incomplete'}
         </p>
-      </div>
+      </div> */}
     </motion.div>
   )
 }
