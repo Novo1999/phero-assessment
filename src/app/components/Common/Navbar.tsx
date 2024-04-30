@@ -7,7 +7,7 @@ const { Header } = Layout
 
 const Navbar: React.FC = () => {
   return (
-    <Header className='min-w-screen !px-0' style={{ height: '64px' }}>
+    <Header className='!px-0' style={{ height: '64px' }}>
       <div className='logo' />
       <Menu theme='light' mode='horizontal' defaultSelectedKeys={['1']}>
         <Menu.Item key='1'>

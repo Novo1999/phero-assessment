@@ -1,19 +1,20 @@
-const ProjectDetailsPage = ({ params: { id } }) => {
-  console.log(id)
+import Activities from '@/app/components/Project/Activities'
+import Members from '@/app/components/Project/Members'
+import ProjectDetailsContainer from '@/app/components/Project/ProjectDetailsContainer'
+import TaskContainer from '@/app/components/Task/TaskContainer'
+
+const ProjectDetailsPage = ({ params: { id } }: { params: { id: string } }) => {
   return (
-    <section className='flex justify-center items-center min-h-screen bg-gray-100 absolute w-screen'>
-      <div className='p-8 bg-white rounded shadow-lg'>
-        <h1 className='text-2xl font-bold mb-4'>Task Details</h1>
-        <div className='mb-4'>
-          <h2 className='text-lg font-semibold mb-2'>Task Title</h2>
-          <p className='text-gray-800'>Task Title Here</p>
-        </div>
-        <div className='mb-4'>
-          <h2 className='text-lg font-semibold mb-2'>Description</h2>
-          <p className='text-gray-800'>Task Description Here</p>
-        </div>
-        {/* Add more task details as needed */}
-      </div>
+    <section className='flex justify-start flex-col items-start gap-3 pt-12 min-h-screen bg-gray-100 absolute w-[100%]'>
+      <ProjectDetailsContainer>
+        <p className='font-bold'>Project Details</p>
+        <p className='mt-4'>Tasks</p>
+        <TaskContainer id={id} />
+        <p className='font-bold'>Assigned members</p>
+        <Members id={id} />
+        <p className='font-bold'>Recent activities</p>
+        <Activities id={id} />
+      </ProjectDetailsContainer>
     </section>
   )
 }

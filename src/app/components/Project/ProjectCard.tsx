@@ -1,11 +1,5 @@
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from '@ant-design/icons'
 import { Avatar, Card } from 'antd'
 import Link from 'next/link'
-import React from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { GrFormView } from 'react-icons/gr'
 import { MdDelete } from 'react-icons/md'
@@ -13,7 +7,6 @@ import { MdDelete } from 'react-icons/md'
 const { Meta } = Card
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  console.log(project)
   const { projectName, createdDate, id } = project
   return (
     <Card

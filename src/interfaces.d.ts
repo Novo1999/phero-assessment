@@ -29,6 +29,15 @@ interface Projects {
   loadProjects: (projects: Project[]) => void
 }
 
+interface Task {
+  id: number
+  title: string
+  description: string
+  assignedTo?: string[]
+  dueDate?: Date
+  completed: boolean
+}
+
 // others
 interface Task {
   id: number

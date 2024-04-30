@@ -1,5 +1,4 @@
 'use client'
-import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { Button } from 'antd'
 import { motion } from 'framer-motion'
@@ -7,8 +6,7 @@ import { TiArrowRight } from 'react-icons/ti'
 import Sidebar from './Sidebar'
 
 const ProjectList = () => {
-  const { toggleSidebar, open } = useSidebarStore((state) => state)
-  const { projects } = useProjectsStore((state) => state)
+  const { toggleSidebar, open } = useSidebarStore()
 
   return (
     <div className='flex'>
