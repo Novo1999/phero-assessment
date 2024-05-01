@@ -1,47 +1,22 @@
 'use client'
-import useProjectsStore from '@/store/projects'
-import { TASK_STATUS } from '@/utils/constants'
+import useTaskItemOperation from '@/hooks/useTaskItemOperation'
 import { Checkbox } from 'antd'
-import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { motion } from 'framer-motion'
-import { useParams } from 'next/navigation'
-import { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { GrDrag } from 'react-icons/gr'
-import { toast } from 'react-toastify'
 import TaskModal from '../Modals/TaskModal'
 
 const TaskItem = ({ task }: { task: Task }) => {
-  const { id: projectId } = useParams()
-  const { updateTask, addActivity } = useProjectsStore()
-
   const { title, id, status } = task
-  const [isDragging, setIsDragging] = useState(false)
-  const [modalOpen, setModalOpen] = useState(false)
 
-  const handleMouseDown = () => {
-    setIsDragging(true)
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-  const handleComplete = (e: CheckboxChangeEvent) => {
-    const checked = e.target.checked
-    updateTask(Number(projectId), id, {
-      ...task,
-      status: checked ? (TASK_STATUS[2] as Task['status']) : 'Done',
-    })
-    addActivity(
-      Number(projectId),
-      `You edited the task ${title} in the status box: Done`
-    )
-    toast.success(`${title} is marked as completed`, {
-      autoClose: 1000,
-      position: 'bottom-right',
-    })
-  }
+  const {
+    isDragging,
+    setModalOpen,
+    handleMouseDown,
+    handleComplete,
+    handleMouseUp,
+    modalOpen,
+  } = useTaskItemOperation(task)
 
   return (
     <motion.div

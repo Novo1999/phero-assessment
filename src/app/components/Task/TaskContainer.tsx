@@ -1,6 +1,7 @@
 'use client'
 
 import TaskItem from '@/app/components/Task/TaskItem'
+import useReorder from '@/hooks/useReorder'
 import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { TASK_STATUS } from '@/utils/constants'
@@ -15,33 +16,11 @@ const ONE = 1
 
 const TaskContainer = () => {
   const { id } = useParams()
-  const { projects, reorderTask, addActivity, filters } = useProjectsStore()
+  const { projects, filters } = useProjectsStore()
   const { open } = useSidebarStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
-  // function for controlling what happens after dragging and dropping a task from one status to another
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result
-    if (!destination) {
-      return
-    }
-
-    // get task id and new status from the result
-    const taskId = Number(result.draggableId.split('-')[2])
-    const newStatus = destination.droppableId.split('-')[1] as Task['status']
-
-    // if the user has dropped on the same status box, this will not fire 🔥, so unnecessary activities wont be created
-    if (source.index !== destination.index) {
-      reorderTask(Number(id), taskId, newStatus)
-      // activity if reorder is successful
-      addActivity(
-        Number(id),
-        `You moved ${
-          currentProject?.tasks.find((task) => task.id === taskId)?.title
-        } to ${newStatus} Status box`
-      )
-    }
-  }
+  const onDragEnd = useReorder()
 
   return (
     <div
