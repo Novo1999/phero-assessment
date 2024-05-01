@@ -1,5 +1,6 @@
 'use client'
 import useSidebarStore from '@/store/sidebar'
+import useUserStore from '@/store/user'
 import { splitString } from '@/utils/splitString'
 import { UserOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
@@ -25,6 +26,8 @@ const Navbar: React.FC = () => {
   const { open } = useSidebarStore()
   const pathname = usePathname()
   const isHome = pathname === '/'
+
+  const { currentLoggedInUser } = useUserStore()
 
   return (
     <>
@@ -81,10 +84,12 @@ const Navbar: React.FC = () => {
               )}
             </motion.div>
             {/* profile */}
-            <div className='flex items-center gap-2'>
-              <p>Name</p>
-              <Avatar shape='circle' size={32} icon={<UserOutlined />} />
-            </div>
+            {currentLoggedInUser && (
+              <div className='flex items-center gap-2'>
+                <p>{currentLoggedInUser}</p>
+                <Avatar shape='circle' size={32} icon={<UserOutlined />} />
+              </div>
+            )}
           </nav>
         </Header>
       </div>
@@ -98,17 +103,19 @@ const Navbar: React.FC = () => {
                 className='text-xl relative sm:text-2xl font-bold ml-2 w-fit mt-2'
                 href='/'
               >
-                Project Management Dashboard
+                {text}
               </Link>
             ) : (
-              <p className='font-bold sm:text-xl'>
-                Project Management Dashboard
-              </p>
+              <p className='font-bold sm:text-xl'>{text}</p>
             )}
-            <div className='flex items-center gap-2'>
-              <p className='hidden min-[425px]:block'>Name</p>
-              <Avatar shape='circle' size={32} icon={<UserOutlined />} />
-            </div>
+            {currentLoggedInUser && (
+              <div className='flex items-center gap-2'>
+                <p className='hidden min-[425px]:block'>
+                  {currentLoggedInUser}
+                </p>
+                <Avatar shape='circle' size={32} icon={<UserOutlined />} />
+              </div>
+            )}
           </nav>
         </Header>
       </div>

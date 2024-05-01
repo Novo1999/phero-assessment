@@ -45,6 +45,8 @@ const ManageMembers = () => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -10 }}
       >
+        <Button onClick={handleManageMembers}>Save Changes</Button>
+
         <Select
           onBlur={() => setIsOpen(false)}
           mode='multiple'
@@ -53,9 +55,7 @@ const ManageMembers = () => {
           onChange={setSelectedMembers}
           className='w-full max-w-48 max-h-48'
           options={teamMembers}
-          popupClassName='absolute'
         />
-        <Button onClick={handleManageMembers}>Save Changes</Button>
       </motion.div>
     </div>
   )

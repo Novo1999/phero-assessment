@@ -1,11 +1,20 @@
 'use client'
+import useProjectsStore from '@/store/projects'
+import { TASK_STATUS } from '@/utils/constants'
+import { Checkbox } from 'antd'
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { motion } from 'framer-motion'
+import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { GrDrag } from 'react-icons/gr'
+import { toast } from 'react-toastify'
 import TaskModal from '../Modals/TaskModal'
 
 const TaskItem = ({ task }: { task: Task }) => {
+  const { id: projectId } = useParams()
+  const { updateTask, addActivity } = useProjectsStore()
+
   const { title, id, status } = task
   const [isDragging, setIsDragging] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
@@ -17,6 +26,23 @@ const TaskItem = ({ task }: { task: Task }) => {
   const handleMouseUp = () => {
     setIsDragging(false)
   }
+
+  const handleComplete = (e: CheckboxChangeEvent) => {
+    const checked = e.target.checked
+    updateTask(Number(projectId), id, {
+      ...task,
+      status: checked ? (TASK_STATUS[2] as Task['status']) : 'Done',
+    })
+    addActivity(
+      Number(projectId),
+      `You edited the task ${title} in the status box: Done`
+    )
+    toast.success(`${title} is marked as completed`, {
+      autoClose: 1000,
+      position: 'bottom-right',
+    })
+  }
+
   return (
     <motion.div
       className={`p-1 relative text-slate-800 hover:bg-blue-600 transition-colors duration-300 ${
@@ -39,7 +65,14 @@ const TaskItem = ({ task }: { task: Task }) => {
               {...provided.dragHandleProps}
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
+              className='flex gap-2 items-center'
             >
+              {status !== 'Done' && (
+                <Checkbox
+                  onChange={handleComplete}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
               <GrDrag className='text-slate-200' />
             </div>
           </div>
