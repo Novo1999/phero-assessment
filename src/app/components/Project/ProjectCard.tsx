@@ -9,6 +9,7 @@ import { GrFormView } from 'react-icons/gr'
 import { MdDelete } from 'react-icons/md'
 import ProjectDeleteModal from '../Modals/ProjectDeleteModal'
 import ProjectEditModal from '../Modals/ProjectEditModal'
+import TransitionLink from '../ui/TransitionLink'
 
 const { Meta } = Card
 
