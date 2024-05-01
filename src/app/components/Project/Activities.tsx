@@ -11,8 +11,10 @@ const Activities = () => {
 
   return (
     <div>
-      {currentProject?.recentActivities?.map((activity: string) => (
-        <p key={crypto.randomUUID()}>{activity}</p>
+      {currentProject?.recentActivities?.map((activity, index) => (
+        <p key={crypto.randomUUID()}>
+          {index + 1}. {activity}
+        </p>
       ))}
     </div>
   )

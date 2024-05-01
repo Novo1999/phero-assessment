@@ -11,8 +11,10 @@ const Members = () => {
 
   return (
     <div>
-      {currentProject?.teamMembers?.map((member: string) => (
-        <p key={member}>{member}</p>
+      {currentProject?.teamMembers?.map((member, index) => (
+        <p key={member}>
+          {index + 1}. {member}
+        </p>
       ))}
     </div>
   )
