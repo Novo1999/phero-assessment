@@ -8,7 +8,7 @@ import React from 'react'
 import { RxCross1 } from 'react-icons/rx'
 import EmptyResponse from '../ui/EmptyResponse'
 import Error from '../ui/ErrorResponse'
-import ProjectSkeleton from '../ui/Skeletons/ProjectSkeleton'
+import ProjectSkeleton from '../ui/ProjectSkeleton'
 import ProjectCard from './ProjectCard'
 
 const Sidebar: React.FC = () => {

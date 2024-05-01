@@ -5,6 +5,8 @@ import ProjectDetailsHeader from '@/app/components/Project/ProjectDetailsHeader'
 import TaskManager from '@/app/components/Task/TaskManager'
 import AddTaskBtn from '@/app/components/ui/AddTaskBtn'
 import { PROJECT_LIST_URL } from '@/utils/constants'
+import { HiUserGroup } from 'react-icons/hi'
+import { RxActivityLog } from 'react-icons/rx'
 
 export async function generateStaticParams() {
   const projects = await fetch(PROJECT_LIST_URL).then((res) => res.json())
@@ -22,9 +24,15 @@ const ProjectDetailsPage = () => {
         </section>
         <TaskManager />
         <section className='shadow-md p-4 mt-12 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-400'>
-          <p className='font-bold mt-2'>Assigned members</p>
+          <p className='font-bold mt-2 flex items-center gap-2'>
+            <HiUserGroup />
+            Assigned members
+          </p>
           <Members />
-          <p className='font-bold mt-6'>Recent activities</p>
+          <p className='font-bold mt-6 flex items-center gap-2'>
+            <RxActivityLog />
+            Recent activities
+          </p>
           <Activities />
         </section>
       </ProjectDetailsContainer>

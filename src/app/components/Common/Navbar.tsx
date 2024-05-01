@@ -1,5 +1,6 @@
 'use client'
 import useSidebarStore from '@/store/sidebar'
+import { splitString } from '@/utils/splitString'
 import { UserOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
 import { Header } from 'antd/es/layout/layout'
@@ -11,6 +12,19 @@ const Navbar: React.FC = () => {
   const { open } = useSidebarStore()
   const pathname = usePathname()
   const isHome = pathname === '/'
+
+  const text = '🎯 Project Management Dashboard'
+
+  const headingTextCharacters = splitString(text)
+
+  const charVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    reveal: {
+      opacity: 1,
+    },
+  }
 
   return (
     <>
@@ -29,9 +43,39 @@ const Navbar: React.FC = () => {
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
               {!isHome ? (
-                <Link href='/'>Project Management Dashboard</Link>
+                <Link href='/'>
+                  <motion.div
+                    initial='hidden'
+                    animate='reveal'
+                    transition={{ staggerChildren: 0.1 }}
+                  >
+                    {headingTextCharacters.map((char, index) => (
+                      <motion.span
+                        variants={charVariants}
+                        key={index}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                </Link>
               ) : (
-                <p>Project Management Dashboard</p>
+                <motion.p
+                  initial='hidden'
+                  animate='reveal'
+                  transition={{ staggerChildren: 0.1 }}
+                >
+                  {headingTextCharacters.map((char, index) => (
+                    <motion.span
+                      variants={charVariants}
+                      key={index}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </motion.p>
               )}
             </motion.div>
             <div className='flex items-center gap-2'>

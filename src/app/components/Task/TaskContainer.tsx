@@ -7,6 +7,7 @@ import { TASK_STATUS } from '@/utils/constants'
 import { filterTasks } from '@/utils/filterTasks'
 import { useParams } from 'next/navigation'
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
+import StatusIcon from '../ui/StatusIcon'
 
 const TaskContainer = () => {
   const { id } = useParams()
@@ -54,7 +55,10 @@ const TaskContainer = () => {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  <p className='text-slate-200'>{status}</p>
+                  <p className='text-slate-200 font-bold flex items-center gap-2'>
+                    <StatusIcon status={status as Task['status']} />
+                    {status}
+                  </p>
                   {/* show count of tasks */}
                   <p className='text-sm italic text-yellow-500'>
                     {

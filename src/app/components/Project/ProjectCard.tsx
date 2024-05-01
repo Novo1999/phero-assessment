@@ -20,7 +20,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const isHome = pathname === '/'
 
   const handleDeleteProject = () => {
-    // deleteProject(id)
     setDeleteModalOpen(true)
   }
 

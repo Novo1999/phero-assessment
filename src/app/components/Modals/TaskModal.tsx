@@ -1,6 +1,11 @@
 import { Modal } from 'antd'
+import { motion } from 'framer-motion'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
+import { GiSandsOfTime } from 'react-icons/gi'
+import { GrStatusGood, GrUserManager } from 'react-icons/gr'
+import { LuClock3 } from 'react-icons/lu'
+import { RiTeamFill } from 'react-icons/ri'
 import TaskEditModal from './TaskEditModal'
 
 const TaskModal = ({
@@ -29,13 +34,15 @@ const TaskModal = ({
       title={
         <div className='flex gap-2 text-xl'>
           <p>{title}</p>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setEditModalOpen(!editModalOpen)}
             className='flex gap-2 items-center text-blue-500'
           >
             <BiEdit />
             <p>Edit</p>
-          </button>
+          </motion.button>
         </div>
       }
       centered
@@ -47,22 +54,37 @@ const TaskModal = ({
       <div className='px-6 py-4'>
         <p className='text-base mb-4'>{description}</p>
         <div className='mb-4'>
-          <p className='font-semibold'>Assigned by:</p>
+          <p className='font-semibold flex items-center gap-2'>
+            <GrUserManager />
+            Assigned by:
+          </p>
           <p>{assignee}</p>
         </div>
         <div className='mb-4'>
-          <p className='font-semibold'>Due:</p>
+          <p className='font-semibold flex items-center gap-2'>
+            <LuClock3 />
+            Due:
+          </p>
           <p>{dueDate}</p>
         </div>
         <div className='mb-4'>
-          <p className='font-semibold'>Deadline:</p>
+          <p className='font-semibold flex items-center gap-2'>
+            <GiSandsOfTime />
+            Deadline:
+          </p>
           <p>{deadline}</p>
         </div>
         <div className='mb-4'>
-          <p className='font-semibold'>Status:</p>
+          <p className='font-semibold flex items-center gap-2'>
+            <GrStatusGood />
+            Status:
+          </p>
           <p>{status}</p>
         </div>
-        <p className='font-semibold mb-2'>Assigned team members:</p>
+        <p className='font-semibold mb-2 flex items-center gap-2'>
+          <RiTeamFill />
+          Assigned team members:
+        </p>
         <div>
           {assignedMembers?.map((member, index) => (
             <p key={index} className='mb-1'>
