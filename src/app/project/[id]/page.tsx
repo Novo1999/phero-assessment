@@ -24,7 +24,7 @@ const ProjectDetailsPage = () => {
           <AddTaskBtn />
         </section>
         <TaskManager />
-        <section className='shadow-md p-4 mt-12 rounded-lg bg-gradient-to-r max-h-80 overflow-y-auto from-cyan-200 to-cyan-400 below-task'>
+        <section className='shadow-md p-4 mt-12 rounded-lg bg-gradient-to-r max-h-80 min-h-60 overflow-y-auto from-cyan-200 to-cyan-400 below-task'>
           <div className='flex justify-between'>
             <p className='font-bold mt-2 flex items-start gap-2'>
               <HiUserGroup />

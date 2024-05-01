@@ -10,7 +10,7 @@ import { MdManageAccounts } from 'react-icons/md'
 const ManageMembers = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { id } = useParams()
-  const { manageMembers } = useProjectsStore()
+  const { manageMembers, addActivity } = useProjectsStore()
 
   const { data: projects } = useGetProjects()
   const currentProject = projects?.find(
@@ -26,6 +26,21 @@ const ManageMembers = () => {
 
   const handleManageMembers = () => {
     manageMembers(Number(id), selectedMembers)
+
+    if (selectedMembers.length === 0) {
+      addActivity(
+        Number(id),
+        `You cleared members of ${currentProject?.projectName}`
+      )
+    } else {
+      addActivity(
+        Number(id),
+        `You updated members of ${
+          currentProject?.projectName
+        } -> ${selectedMembers.map((member) => member).join(', ')}`
+      )
+    }
+
     // when changed are saved, close the select
     setIsOpen(false)
   }

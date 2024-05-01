@@ -27,10 +27,7 @@ const useTaskItemOperation = (task: Task) => {
       ...task,
       status: checked ? (TASK_STATUS[2] as Task['status']) : 'Done',
     })
-    addActivity(
-      Number(projectId),
-      `You edited the task ${title} in the status box: Done`
-    )
+    addActivity(Number(projectId), `You marked ${title} as completed`)
     toast.success(`${title} is marked as completed`, {
       autoClose: 1000,
       position: 'bottom-right',
