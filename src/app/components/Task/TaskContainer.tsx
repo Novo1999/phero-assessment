@@ -49,9 +49,9 @@ const TaskContainer = () => {
                 <div
                   className={`lg:w-60 xl:w-80 shadow-lg min-h-48 max-h-48 overflow-y-auto rounded-lg ${
                     snapshot.isDraggingOver
-                      ? 'bg-gradient-to-r from-indigo-500 to-blue-500'
+                      ? 'bg-gradient-to-r from-indigo-500 to-blue-500 transition-all duration-300 border-2 border-slate-700'
                       : 'bg-gradient-to-r from-blue-600 to-violet-600 '
-                  } p-2`}
+                  } p-2 shadow-md`}
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >

@@ -43,6 +43,24 @@ const useProjectsStore = create<Projects>((set) => ({
         return state
       }
     }),
+  manageMembers: (projectId, members) =>
+    set((state) => {
+      const projectIndex = state.projects.findIndex(
+        (project) => project.id === projectId
+      )
+
+      // if project exists
+      if (projectIndex !== -1) {
+        const updatedProjects = [...state.projects]
+        updatedProjects[projectIndex].teamMembers = members
+        return {
+          ...state,
+          projects: updatedProjects,
+        }
+      } else {
+        return state
+      }
+    }),
   reorderTask: (projectId, sourceId, newStatus) =>
     set((state) => {
       const projectIndex = state.projects.findIndex(

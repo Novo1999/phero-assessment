@@ -43,6 +43,7 @@ interface Projects {
   addActivity: (projectId: number, activity: string) => void
   updateTask: (projectId: number, taskId: number, updatedValues: Task) => void
   filterTask: (status, assignee, dueDate) => void
+  manageMembers: (projectId, members) => void
 }
 
 // others
