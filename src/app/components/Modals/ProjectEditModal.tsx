@@ -11,6 +11,12 @@ const ProjectEditModal = ({
   setModalOpen: Dispatch<SetStateAction<boolean>>
   id: number
 }) => {
+  const hideButton = {
+    style: {
+      display: 'none',
+    },
+  }
+
   return (
     <Modal
       title='Edit Project'
@@ -18,6 +24,8 @@ const ProjectEditModal = ({
       open={modalOpen}
       onOk={() => setModalOpen(false)}
       onCancel={() => setModalOpen(false)}
+      okButtonProps={hideButton}
+      cancelButtonProps={hideButton}
     >
       <ProjectEditForm setModalOpen={setModalOpen} id={id} />
     </Modal>

@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 const TaskFilter = () => {
   const { id } = useParams()
-  const { filterTask, filters, projects } = useProjectsStore()
+  const { filterTask, projects } = useProjectsStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
   const [selectedStatus, setSelectedStatus] = useState<string[]>([])

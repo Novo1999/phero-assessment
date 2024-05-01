@@ -7,19 +7,21 @@ import { useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { GrFormView } from 'react-icons/gr'
 import { MdDelete } from 'react-icons/md'
+import ProjectDeleteModal from '../Modals/ProjectDeleteModal'
 import ProjectEditModal from '../Modals/ProjectEditModal'
 
 const { Meta } = Card
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  const { deleteProject } = useProjectsStore()
   const { projectName, createdDate, id } = project
   const [modalOpen, setModalOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const pathname = usePathname()
   const isHome = pathname === '/'
 
   const handleDeleteProject = () => {
-    deleteProject(id)
+    // deleteProject(id)
+    setDeleteModalOpen(true)
   }
 
   return (
@@ -27,6 +29,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
       whileHover={{ y: -2 }}
       initial={{ opacity: 0, y: -200 }}
       animate={{ opacity: 1, y: 0 }}
+      layout
+      exit={{ y: -300, opacity: 0 }}
     >
       <Card
         className={`${
@@ -65,12 +69,19 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </p>
           }
         />
+        {/* project edit modal */}
         <ProjectEditModal
           id={id}
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
       </Card>
+      {/* project delete modal */}
+      <ProjectDeleteModal
+        projectId={id}
+        modalOpen={deleteModalOpen}
+        setModalOpen={setDeleteModalOpen}
+      />
     </motion.div>
   )
 }

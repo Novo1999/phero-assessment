@@ -3,7 +3,7 @@ import useGetProjects from '@/hooks/useGetProjects'
 import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { Drawer } from 'antd'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 import { RxCross1 } from 'react-icons/rx'
 import EmptyResponse from '../ui/EmptyResponse'
@@ -44,9 +44,11 @@ const Sidebar: React.FC = () => {
   if (!isLoading && !isError && data?.length > 0) {
     content = (
       <div className='flex flex-col gap-4'>
-        {projects.map((project: Project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+        <AnimatePresence mode='popLayout'>
+          {projects.map((project: Project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </AnimatePresence>
       </div>
     )
   }

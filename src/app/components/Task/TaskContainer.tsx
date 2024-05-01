@@ -14,10 +14,6 @@ const TaskContainer = () => {
   const { open } = useSidebarStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
-  const onDragStart = () => {
-    console.log('drag start', id)
-  }
-
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
     if (!destination) {
@@ -44,7 +40,7 @@ const TaskContainer = () => {
         open ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
       } xl:grid-cols-3 gap-4`}
     >
-      <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd}>
         {TASK_STATUS.map((status) => (
           <div key={status}>
             <Droppable droppableId={`droppable-${status}`} type='task'>
@@ -59,6 +55,20 @@ const TaskContainer = () => {
                   {...provided.droppableProps}
                 >
                   <p className='text-slate-200'>{status}</p>
+                  {/* show count of tasks */}
+                  <p className='text-sm italic text-yellow-500'>
+                    {
+                      currentProject?.tasks
+                        .filter((task) => task.status === status)
+                        .filter((task) => filterTasks(task, filters)).length
+                    }{' '}
+                    {currentProject?.tasks
+                      .filter((task) => task.status === status)
+                      .filter((task) => filterTasks(task, filters)).length! > 1
+                      ? 'tasks'
+                      : 'task'}
+                  </p>
+                  {/* filter and map the tasks */}
                   {currentProject?.tasks
                     .filter((task) => task.status === status)
                     .filter((task) => filterTasks(task, filters))

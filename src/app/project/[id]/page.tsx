@@ -1,6 +1,7 @@
 import Activities from '@/app/components/Project/Activities'
 import Members from '@/app/components/Project/Members'
 import ProjectDetailsContainer from '@/app/components/Project/ProjectDetailsContainer'
+import ProjectDetailsHeader from '@/app/components/Project/ProjectDetailsHeader'
 import TaskManager from '@/app/components/Task/TaskManager'
 import AddTaskBtn from '@/app/components/ui/AddTaskBtn'
 import { PROJECT_LIST_URL } from '@/utils/constants'
@@ -16,7 +17,7 @@ const ProjectDetailsPage = () => {
     <section className='flex justify-start flex-col items-start gap-3 pt-12 min-h-screen bg-gradient-to-r *:text-slate-800 from-teal-200 to-teal-500 absolute w-fit sm:w-[100%]'>
       <ProjectDetailsContainer>
         <section className='flex justify-between'>
-          <p className='font-bold'>Project Details</p>
+          <ProjectDetailsHeader />
           <AddTaskBtn />
         </section>
         <TaskManager />

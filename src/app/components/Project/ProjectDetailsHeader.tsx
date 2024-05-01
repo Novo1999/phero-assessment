@@ -3,18 +3,18 @@
 import useProjectsStore from '@/store/projects'
 import { useParams } from 'next/navigation'
 
-const Activities = () => {
+const ProjectDetailsHeader = () => {
   const { id } = useParams()
-
   const { projects } = useProjectsStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
   return (
     <div>
-      {currentProject?.recentActivities?.map((activity: string) => (
-        <p key={crypto.randomUUID()}>{activity}</p>
-      ))}
+      <p className='font-bold'>Project Details</p>
+      <p className='italic underline underline-offset-8 text-slate-600'>
+        {currentProject?.projectName}
+      </p>
     </div>
   )
 }
-export default Activities
+export default ProjectDetailsHeader
