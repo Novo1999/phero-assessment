@@ -45,9 +45,16 @@ const Navbar: React.FC = () => {
         <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
           <div className='logo' />
           <nav className='h-full bg-white p-4 flex items-center justify-between'>
-            <p className='text-xl relative sm:text-2xl font-bold ml-2 w-fit mt-2'>
-              Project Management Dashboard
-            </p>
+            {!isHome ? (
+              <Link
+                className='text-xl relative sm:text-2xl font-bold ml-2 w-fit mt-2'
+                href='/'
+              >
+                Project Management Dashboard
+              </Link>
+            ) : (
+              <p>Project Management Dashboard</p>
+            )}
             <div className='flex items-center gap-2'>
               <p className='hidden min-[425px]:block'>Name</p>
               <Avatar shape='circle' size={32} icon={<UserOutlined />} />

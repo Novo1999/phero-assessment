@@ -1,5 +1,6 @@
 import useProjectsStore from '@/store/projects'
 import { Avatar, Card } from 'antd'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
@@ -22,42 +23,46 @@ const ProjectCard = ({ project }: { project: Project }) => {
   }
 
   return (
-    <Card
-      className={`${isHome ? 'w-60 min-[375px]:w-72' : 'w-60 !ml-4'}`}
-      actions={[
-        <Link key='view' href={`/project/${id}`}>
-          <GrFormView className='text-lg m-auto' />
-        </Link>,
-        <BiEdit
-          onClick={() => setModalOpen(!modalOpen)}
-          className='text-base m-auto'
-          key='edit'
-        />,
-        <MdDelete
-          onClick={handleDeleteProject}
-          className='text-base m-auto hover:text-red-500'
-          key='delete'
-        />,
-      ]}
-    >
-      <Meta
-        avatar={
-          <Avatar src='https://api.dicebear.com/7.x/miniavs/svg?seed=8' />
-        }
-        title={<Link href={`/project/${id}`}>{projectName}</Link>}
-        description={
-          <p>
-            <span className='text-slate-400 font-semibold'>Created: </span>{' '}
-            {createdDate}
-          </p>
-        }
-      />
-      <ProjectEditModal
-        id={id}
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-      />
-    </Card>
+    <motion.div whileHover={{ y: -2 }}>
+      <Card
+        className={`${
+          isHome ? 'w-60 min-[375px]:w-72' : 'w-60 !ml-4'
+        } shadow-md`}
+        actions={[
+          <Link key='view' href={`/project/${id}`}>
+            <GrFormView className='text-lg m-auto' />
+          </Link>,
+          <BiEdit
+            onClick={() => setModalOpen(!modalOpen)}
+            className='text-base m-auto'
+            key='edit'
+          />,
+          <MdDelete
+            onClick={handleDeleteProject}
+            className='text-base m-auto hover:text-red-500'
+            key='delete'
+          />,
+        ]}
+      >
+        <Meta
+          avatar={
+            <Avatar src='https://api.dicebear.com/7.x/miniavs/svg?seed=8' />
+          }
+          title={<Link href={`/project/${id}`}>{projectName}</Link>}
+          description={
+            <p>
+              <span className='text-slate-400 font-semibold'>Created: </span>{' '}
+              {createdDate}
+            </p>
+          }
+        />
+        <ProjectEditModal
+          id={id}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+        />
+      </Card>
+    </motion.div>
   )
 }
 

@@ -36,6 +36,7 @@ interface Projects {
   updateProjectName: (projectId: number, newName: string) => void
   addTask: (projectId: number, values: Task) => void
   addActivity: (projectId: number, activity: string) => void
+  updateTask: (projectId: number, taskId: number, updatedValues: Task) => void
 }
 
 // others

@@ -6,6 +6,7 @@ import EmptyResponse from '../ui/EmptyResponse'
 import Error from '../ui/ErrorResponse'
 import Loader from '../ui/Loading'
 import ProjectCard from './ProjectCard'
+
 const ProjectContainer = () => {
   const { data, isLoading, isError } = useGetProjects()
   const pathname = usePathname()

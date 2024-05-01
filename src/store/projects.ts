@@ -102,7 +102,43 @@ const useProjectsStore = create<Projects>((set) => ({
         return state
       }
     }),
+  updateTask: (projectId: number, taskId: number, updatedValues: Task) =>
+    set((state) => {
+      const projectIndex = state.projects.findIndex(
+        (project) => project.id === projectId
+      )
 
+      const formattedDueDate = moment(updatedValues.dueDate).format(
+        'YYYY-MM-DD'
+      )
+      const formattedDeadline = moment(updatedValues.deadline).format(
+        'YYYY-MM-DD'
+      )
+      if (projectIndex !== -1) {
+        const updatedProjects = [...state.projects]
+
+        const updatedTasks = updatedProjects[projectIndex].tasks.map((task) => {
+          if (task.id === taskId) {
+            return {
+              ...task,
+              ...updatedValues,
+              dueDate: formattedDueDate,
+              deadline: formattedDeadline,
+            }
+          }
+          return task
+        })
+
+        updatedProjects[projectIndex].tasks = updatedTasks
+
+        return {
+          ...state,
+          projects: updatedProjects,
+        }
+      } else {
+        return state
+      }
+    }),
   addActivity: (projectId: number, activity: string) =>
     set((state) => {
       const projectIndex = state.projects.findIndex(
