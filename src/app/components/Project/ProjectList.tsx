@@ -9,10 +9,15 @@ import Sidebar from './Sidebar'
 const ProjectList = () => {
   const { toggleSidebar, open } = useSidebarStore()
   const pathname = usePathname()
-  const isHome = pathname === '/'
+  const isHome_OR_isLogin_OR_isRegisterPage =
+    pathname === '/' || pathname === '/register' || pathname === '/login'
 
   return (
-    <div className={`flex ${isHome ? 'invisible' : 'visible'}`}>
+    <div
+      className={`flex ${
+        isHome_OR_isLogin_OR_isRegisterPage ? 'invisible' : 'visible'
+      }`}
+    >
       <motion.aside
         initial={{ x: open ? -300 : 0, opacity: 0 }}
         animate={{

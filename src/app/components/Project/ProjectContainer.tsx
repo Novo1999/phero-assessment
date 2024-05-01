@@ -25,10 +25,8 @@ const ProjectContainer = () => {
 
   if (isLoading) {
     content = (
-      <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 sm:w-[40rem]'>
-        {Array.from({ length: 12 }).map((_, index) => {
-          return <Loader key={index} />
-        })}
+      <div className='min-h-[90vh] flex items-center'>
+        <Loader />
       </div>
     )
   }

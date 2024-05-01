@@ -41,10 +41,11 @@ const Navbar: React.FC = () => {
           </nav>
         </Header>
       </div>
+      {/* header */}
       <div className='block lg:hidden'>
         <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
           <div className='logo' />
-          <nav className='h-full bg-white p-4 flex items-center justify-between'>
+          <nav className='h-full bg-white pl-2 sm:p-4 flex items-center justify-between'>
             {!isHome ? (
               <Link
                 className='text-xl relative sm:text-2xl font-bold ml-2 w-fit mt-2'
@@ -53,7 +54,9 @@ const Navbar: React.FC = () => {
                 Project Management Dashboard
               </Link>
             ) : (
-              <p>Project Management Dashboard</p>
+              <p className='font-bold sm:text-xl'>
+                Project Management Dashboard
+              </p>
             )}
             <div className='flex items-center gap-2'>
               <p className='hidden min-[425px]:block'>Name</p>

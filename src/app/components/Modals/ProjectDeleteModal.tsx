@@ -38,7 +38,7 @@ const ProjectDeleteModal = ({
           backgroundColor: '#c72525',
         },
       }}
-      okText={<button>Delete</button>}
+      okText='Delete'
       onOk={handleDelete}
     ></Modal>
   )

@@ -58,10 +58,15 @@ const ProjectCard = ({ project }: { project: Project }) => {
         ]}
       >
         <Meta
-          avatar={
-            <Avatar src='https://api.dicebear.com/7.x/miniavs/svg?seed=8' />
+          title={
+            <Link href={`/project/${id}`}>
+              {
+                <p>
+                  {id}.{projectName}
+                </p>
+              }
+            </Link>
           }
-          title={<Link href={`/project/${id}`}>{projectName}</Link>}
           description={
             <p>
               <span className='text-slate-400 font-semibold'>Created: </span>{' '}
