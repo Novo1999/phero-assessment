@@ -1,6 +1,7 @@
 import useProjectsStore from '@/store/projects'
 import { Avatar, Card } from 'antd'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { GrFormView } from 'react-icons/gr'
@@ -13,6 +14,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const { deleteProject } = useProjectsStore()
   const { projectName, createdDate, id } = project
   const [modalOpen, setModalOpen] = useState(false)
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   const handleDeleteProject = () => {
     deleteProject(id)
@@ -20,7 +23,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
   return (
     <Card
-      style={{ width: 250 }}
+      className={`${isHome ? 'w-60 min-[375px]:w-72' : 'w-60 !ml-4'}`}
       actions={[
         <Link key='view' href={`/project/${id}`}>
           <GrFormView className='text-lg m-auto' />
@@ -41,10 +44,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
         avatar={
           <Avatar src='https://api.dicebear.com/7.x/miniavs/svg?seed=8' />
         }
-        title={projectName}
+        title={<Link href={`/project/${id}`}>{projectName}</Link>}
         description={
           <p>
-            <span className='text-blue-500 font-semibold'>Created: </span>{' '}
+            <span className='text-slate-400 font-semibold'>Created: </span>{' '}
             {createdDate}
           </p>
         }

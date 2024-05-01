@@ -2,14 +2,17 @@
 import useSidebarStore from '@/store/sidebar'
 import { Button } from 'antd'
 import { motion } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 import { TiArrowRight } from 'react-icons/ti'
 import Sidebar from './Sidebar'
 
 const ProjectList = () => {
   const { toggleSidebar, open } = useSidebarStore()
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   return (
-    <div className='flex'>
+    <div className={`flex ${isHome ? 'invisible' : 'visible'}`}>
       <motion.aside
         initial={{ x: open ? -300 : 0, opacity: 0 }}
         animate={{
@@ -17,7 +20,7 @@ const ProjectList = () => {
           opacity: !open ? 1 : 0,
           transition: { delay: !open ? 0.1 : 0, ease: 'easeIn' },
         }}
-        className='bg-gray-200 min-h-screen max-w-2'
+        className='bg-gray-200 min-h-screen max-w-2 absolute top-20'
       >
         <Button
           onClick={() => toggleSidebar(true)}

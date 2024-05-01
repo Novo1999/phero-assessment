@@ -16,7 +16,7 @@ const Sidebar: React.FC = () => {
 
   const { projects } = useProjectsStore()
 
-  const { open, toggleSidebar } = useSidebarStore((state) => state)
+  const { open, toggleSidebar } = useSidebarStore()
 
   let content = null
 
