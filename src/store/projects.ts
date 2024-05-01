@@ -3,6 +3,11 @@ import { create } from 'zustand'
 
 const useProjectsStore = create<Projects>((set) => ({
   projects: [],
+  filters: {
+    status: [],
+    dueDate: '',
+    assignee: [],
+  },
   loadProjects: (projects) =>
     set((state) => ({
       ...state,
@@ -102,6 +107,11 @@ const useProjectsStore = create<Projects>((set) => ({
         return state
       }
     }),
+  filterTask: (status, assignee, dueDate) =>
+    set((state) => ({
+      ...state,
+      filters: { status, assignee, dueDate },
+    })),
   updateTask: (projectId: number, taskId: number, updatedValues: Task) =>
     set((state) => {
       const projectIndex = state.projects.findIndex(

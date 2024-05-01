@@ -1,12 +1,9 @@
 'use client'
 import { Button, Modal } from 'antd'
-import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import AddTaskForm from '../Task/AddTaskForm'
 
 const AddTaskBtn = () => {
-  const { id } = useParams()
-
   const [modalOpen, setModalOpen] = useState(false)
 
   const hideButton = {

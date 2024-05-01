@@ -10,6 +10,8 @@ const TaskItem = ({ task }: { task: Task }) => {
   const [isDragging, setIsDragging] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
 
+  console.log(isDragging)
+
   const handleMouseDown = () => {
     setIsDragging(true)
   }
@@ -31,8 +33,8 @@ const TaskItem = ({ task }: { task: Task }) => {
             {...provided.draggableProps}
             ref={provided.innerRef}
             className={`flex justify-between  ${
-              isDragging ? 'border-2' : ''
-            } items-center p-1`}
+              isDragging ? 'border-2 rounded p-1' : ''
+            } items-center`}
           >
             <p className='text-gray-200'>{title}</p>
             <div

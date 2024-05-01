@@ -20,7 +20,7 @@ const ProjectList = () => {
           opacity: !open ? 1 : 0,
           transition: { delay: !open ? 0.1 : 0, ease: 'easeIn' },
         }}
-        className='bg-gray-200 min-h-screen max-w-2 absolute top-20'
+        className='bg-gradient-to-r from-blue-400 to-emerald-400 min-h-screen max-w-2 absolute top-20'
       >
         <Button
           onClick={() => toggleSidebar(true)}

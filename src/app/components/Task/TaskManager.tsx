@@ -1,6 +1,7 @@
 'use client'
 import SearchTask from './SearchTask'
 import TaskContainer from './TaskContainer'
+import TaskFilter from './TaskFilter'
 
 const TaskManager = () => {
   return (
@@ -9,6 +10,8 @@ const TaskManager = () => {
         <p className='mt-4 text-xl mb-2'>Tasks</p>
         <SearchTask />
       </div>
+      <p className='text-center text-sm'>Filters</p>
+      <TaskFilter />
       <TaskContainer />
     </section>
   )

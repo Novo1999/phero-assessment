@@ -26,6 +26,11 @@ interface SidebarStoreActions {
 
 interface Projects {
   projects: Project[]
+  filters: {
+    status: string[]
+    dueDate: any
+    assignee: string[]
+  }
   loadProjects: (projects: Project[]) => void
   deleteProject: (id: number) => void
   reorderTask: (
@@ -37,6 +42,7 @@ interface Projects {
   addTask: (projectId: number, values: Task) => void
   addActivity: (projectId: number, activity: string) => void
   updateTask: (projectId: number, taskId: number, updatedValues: Task) => void
+  filterTask: (status, assignee, dueDate) => void
 }
 
 // others
