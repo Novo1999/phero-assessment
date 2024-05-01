@@ -1,13 +1,14 @@
 import useProjectsStore from '@/store/projects'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Form, Input, Select } from 'antd'
+import { useParams } from 'next/navigation'
 import { useState } from 'react'
 
 const { Option } = Select
 
-const AddTaskForm = ({ id }: { id: string }) => {
+const AddTaskForm = () => {
+  const { id } = useParams()
   const { projects, addTask, addActivity } = useProjectsStore()
-  console.log('🚀 ~ AddTaskForm ~ projects:', projects)
   const currentProject = projects.find((project) => project.id === Number(id))
 
   const [form] = Form.useForm()
@@ -16,7 +17,6 @@ const AddTaskForm = ({ id }: { id: string }) => {
   const handleSubmit = (values: Task) => {
     setLoading(true)
 
-    console.log(values)
     addTask(Number(id), values)
     addActivity(Number(id), `You added a new task ${values.title}`)
     form.resetFields()

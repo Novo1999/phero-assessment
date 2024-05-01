@@ -1,9 +1,11 @@
 'use client'
 
-import TaskItem from '@/app/components/Task/TaskItem'
 import useProjectsStore from '@/store/projects'
+import { useParams } from 'next/navigation'
 
-const Members = ({ id }: { id: string }) => {
+const Members = () => {
+  const { id } = useParams()
+
   const { projects } = useProjectsStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 

@@ -20,7 +20,7 @@ const TaskModal = ({
     dueDate,
     assignedMembers,
     status,
-  } = task
+  } = task ?? {}
 
   const [editModalOpen, setEditModalOpen] = useState(false)
 
@@ -64,7 +64,7 @@ const TaskModal = ({
         </div>
         <p className='font-semibold mb-2'>Assigned team members:</p>
         <div>
-          {assignedMembers.map((member, index) => (
+          {assignedMembers?.map((member, index) => (
             <p key={index} className='mb-1'>
               {member}
             </p>

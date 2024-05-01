@@ -13,7 +13,7 @@ const getProjects = async () => {
 }
 
 const useGetProjects = () => {
-  const { loadProjects } = useProjectsStore((state) => state)
+  const { loadProjects } = useProjectsStore()
   const query = useQuery({
     queryKey: ['projects'],
     queryFn: async () => {

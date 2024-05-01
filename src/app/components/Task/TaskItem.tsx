@@ -1,5 +1,4 @@
 'use client'
-import useSidebarStore from '@/store/sidebar'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
@@ -7,12 +6,9 @@ import { GrDrag } from 'react-icons/gr'
 import TaskModal from '../Modals/TaskModal'
 
 const TaskItem = ({ task }: { task: Task }) => {
-  const { open } = useSidebarStore()
-  const { title, description, assignee, dueDate, id, status } = task
+  const { title, id, status } = task
   const [isDragging, setIsDragging] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
-
-  console.log(modalOpen)
 
   const handleMouseDown = () => {
     setIsDragging(true)
@@ -49,36 +45,6 @@ const TaskItem = ({ task }: { task: Task }) => {
           </div>
         )}
       </Draggable>
-      {/* <div className='mb-4'>
-        <h2 className='text-lg font-semibold mb-2'>Description</h2>
-        <p className='text-gray-800'>{description}</p>
-      </div>
-      {assignedTo && (
-        <div className='mb-4'>
-          <h2 className='text-lg font-semibold mb-2'>Assigned To</h2>
-          <ul>
-            {assignedTo.map((user, index) => (
-              <li key={index}>{user}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {dueDate && (
-        <div className='mb-4'>
-          <h2 className='text-lg font-semibold mb-2'>Due Date</h2>
-          <p className='text-gray-800'>{dueDate}</p>
-        </div>
-      )}
-      <div>
-        <h2 className='text-lg font-semibold mb-2'>Status</h2>
-        <p
-          className={`text-gray-800 ${
-            completed ? 'text-green-600' : 'text-red-600'
-          }`}
-        >
-          {completed ? 'Completed' : 'Incomplete'}
-        </p>
-      </div> */}
       <TaskModal
         task={task}
         modalOpen={modalOpen}

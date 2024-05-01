@@ -1,8 +1,11 @@
 'use client'
 
 import useProjectsStore from '@/store/projects'
+import { useParams } from 'next/navigation'
 
-const Activities = ({ id }: { id: string }) => {
+const Activities = () => {
+  const { id } = useParams()
+
   const { projects } = useProjectsStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 

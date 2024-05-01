@@ -21,14 +21,13 @@ const RegisterForm: React.FC = () => {
     }
   }
 
-  // validate the email field to check if email is valid as user types
-
   return (
     <Form name='normal_login' className='login-form' onFinish={onSubmit}>
       <Form.Item
         name='email'
         rules={[
           { required: true, message: 'Please input your Email!' },
+          // validate the email field to check if email is valid as user types
           { validator: validateEmailField },
         ]}
         validateStatus=''

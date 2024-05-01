@@ -19,3 +19,4 @@
 <!-- - task drag and drop to change status(todo, in progress, done) -->
 - filter tasks by status, due date, assignee
 - Auth private route
+- sidebar true on single project page

@@ -23,9 +23,8 @@ const TaskEditModal = ({
       open={modalOpen}
       onCancel={() => setModalOpen(false)}
       okButtonProps={hideButton}
-      // cancelButtonProps={hideButton}
     >
-      <EditTaskForm taskId={task.id} />
+      <EditTaskForm taskId={task?.id} setModalOpen={setModalOpen} />
     </Modal>
   )
 }

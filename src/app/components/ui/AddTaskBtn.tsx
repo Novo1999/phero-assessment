@@ -1,9 +1,12 @@
 'use client'
 import { Button, Modal } from 'antd'
+import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import AddTaskForm from '../Task/AddTaskForm'
 
-const AddTaskBtn = ({ id }: { id: string }) => {
+const AddTaskBtn = () => {
+  const { id } = useParams()
+
   const [modalOpen, setModalOpen] = useState(false)
 
   const hideButton = {
@@ -26,7 +29,7 @@ const AddTaskBtn = ({ id }: { id: string }) => {
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
       >
-        <AddTaskForm id={id} />
+        <AddTaskForm />
       </Modal>
     </>
   )

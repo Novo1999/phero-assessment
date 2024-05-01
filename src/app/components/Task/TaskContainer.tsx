@@ -1,12 +1,14 @@
 'use client'
 
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
-
 import TaskItem from '@/app/components/Task/TaskItem'
 import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { TASK_STATUS } from '@/utils/constants'
-const TaskContainer = ({ id }: { id: string }) => {
+import { useParams } from 'next/navigation'
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
+
+const TaskContainer = () => {
+  const { id } = useParams()
   const { projects, reorderTask, addActivity } = useProjectsStore()
   const { open } = useSidebarStore()
   const currentProject = projects.find((project) => project.id === Number(id))
@@ -22,12 +24,7 @@ const TaskContainer = ({ id }: { id: string }) => {
     }
 
     const taskId = Number(result.draggableId.split('-')[2])
-    const newStatus = destination.droppableId.split('-')[1] as
-      | 'To Do'
-      | 'In Progress'
-      | 'Done'
-
-    console.log(result)
+    const newStatus = destination.droppableId.split('-')[1] as Task['status']
 
     if (source.index !== destination.index) {
       reorderTask(Number(id), taskId, newStatus)
@@ -52,7 +49,7 @@ const TaskContainer = ({ id }: { id: string }) => {
             <Droppable droppableId={`droppable-${status}`} type='task'>
               {(provided, snapshot) => (
                 <div
-                  className={`lg:w-60 xl:w-80 min-h-48 max-h-48 overflow-y-auto ${
+                  className={`lg:w-60 xl:w-80 shadow-lg min-h-48 max-h-48 overflow-y-auto rounded-lg ${
                     snapshot.isDraggingOver
                       ? 'bg-gradient-to-r from-indigo-500 to-blue-500'
                       : 'bg-gradient-to-r from-blue-600 to-violet-600 '

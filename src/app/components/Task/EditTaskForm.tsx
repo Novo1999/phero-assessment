@@ -2,18 +2,23 @@ import useProjectsStore from '@/store/projects'
 import { Button, DatePicker, Form, Input, Select } from 'antd'
 import moment from 'moment'
 import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 const { Option } = Select
 
-const EditTaskForm = ({ taskId }: { taskId: number }) => {
-  const { projects, updateTask } = useProjectsStore()
+const EditTaskForm = ({
+  taskId,
+  setModalOpen,
+}: {
+  taskId: number
+  setModalOpen: Dispatch<SetStateAction<boolean>>
+}) => {
+  const { projects, updateTask, addActivity } = useProjectsStore()
 
   const { id } = useParams()
 
   const currentProject = projects.find((project) => project.id === Number(id))
   const taskToEdit = currentProject?.tasks.find((task) => task.id === taskId)
-  console.log('🚀 ~ EditTaskForm ~ taskToEdit:', taskToEdit)
 
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
@@ -24,8 +29,16 @@ const EditTaskForm = ({ taskId }: { taskId: number }) => {
     updateTask(Number(id), taskId, values)
 
     setLoading(false)
+
+    addActivity(
+      Number(id),
+      `You edited the task ${taskToEdit?.title} in the status box: ${taskToEdit?.status}`
+    )
+
+    setModalOpen(false)
   }
 
+  // load the default values
   useEffect(() => {
     if (taskToEdit) {
       form.setFieldsValue({
