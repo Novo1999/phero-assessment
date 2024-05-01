@@ -2,32 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.below-task::-webkit-scrollbar {
+  width: 6px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.below-task::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.below-task::-webkit-scrollbar-thumb {
+  background: rgba(37, 23, 234, 0.676);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.below-task::-webkit-scrollbar-thumb:hover {
+  background: #09e4ce;
+}
+
+.ant-drawer-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ant-drawer-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.ant-drawer-body::-webkit-scrollbar-thumb {
+  background: rgba(37, 23, 234, 0.676);
+}
+
+.ant-drawer-body::-webkit-scrollbar-thumb:hover {
+  background: #09e4ce;
 }

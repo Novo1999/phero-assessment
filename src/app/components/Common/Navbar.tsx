@@ -1,13 +1,17 @@
 'use client'
 import useSidebarStore from '@/store/sidebar'
+import useThemeStore from '@/store/theme'
 import useUserStore from '@/store/user'
+import { applyThemePreference } from '@/utils/applyThemePreference'
 import { splitString } from '@/utils/splitString'
 import { UserOutlined } from '@ant-design/icons'
-import { Avatar } from 'antd'
+import { Avatar, FloatButton } from 'antd'
 import { Header } from 'antd/es/layout/layout'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
+import { CgMoon, CgSun } from 'react-icons/cg'
 
 const charVariants = {
   hidden: {
@@ -27,15 +31,24 @@ const Navbar: React.FC = () => {
   const pathname = usePathname()
   const isHome = pathname === '/'
 
+  const toggleTheme = useThemeStore((state) => state.toggleTheme)
+  const theme = useThemeStore((state) => state.theme)
+  console.log(theme)
+
+  useEffect(() => {
+    applyThemePreference(theme)
+  }, [theme])
+
   const { currentLoggedInUser } = useUserStore()
 
   return (
     <>
-      <div className='hidden lg:block'>
+      {/* Navbar for big screens */}
+      <div className='hidden lg:block '>
         <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
           <div className='logo' />
           <nav
-            className={`h-full bg-white p-4 flex items-center ${
+            className={`h-full bg-white dark:bg-slate-800 dark:text-white p-4 flex items-center ${
               !isHome ? 'lg:justify-between' : 'justify-evenly'
             } gap-60`}
           >
@@ -94,7 +107,7 @@ const Navbar: React.FC = () => {
         </Header>
       </div>
       {/* header for mobile*/}
-      <div className='block lg:hidden'>
+      <div className='block lg:hidden dark:bg-slate-800'>
         <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
           <div className='logo' />
           <nav className='h-full bg-white pl-2 sm:p-4 flex items-center justify-between'>
@@ -119,6 +132,13 @@ const Navbar: React.FC = () => {
           </nav>
         </Header>
       </div>
+      <FloatButton
+        tooltip={
+          theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+        }
+        icon={theme === 'dark' ? <CgMoon /> : <CgSun />}
+        onClick={toggleTheme}
+      />
     </>
   )
 }

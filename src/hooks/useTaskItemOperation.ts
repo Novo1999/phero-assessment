@@ -9,7 +9,7 @@ const useTaskItemOperation = (task: Task) => {
   const { id: projectId } = useParams()
   const { updateTask, addActivity } = useProjectsStore()
 
-  const { title, id, status } = task
+  const { title, id } = task
   const [isDragging, setIsDragging] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
 

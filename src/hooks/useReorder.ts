@@ -5,7 +5,7 @@ import { DropResult } from 'react-beautiful-dnd'
 const useReorder = () => {
   const { id } = useParams()
 
-  const { projects, reorderTask, addActivity, filters } = useProjectsStore()
+  const { projects, reorderTask, addActivity } = useProjectsStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
   const onDragEnd = (result: DropResult) => {

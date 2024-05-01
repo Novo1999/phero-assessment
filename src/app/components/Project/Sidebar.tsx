@@ -2,6 +2,7 @@
 import useGetProjects from '@/hooks/useGetProjects'
 import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
+import useThemeStore from '@/store/theme'
 import { Drawer } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
@@ -17,6 +18,8 @@ const Sidebar: React.FC = () => {
   const { projects } = useProjectsStore()
 
   const { open, toggleSidebar } = useSidebarStore()
+
+  const theme = useThemeStore((state) => state.theme)
 
   let content = null
 
@@ -69,8 +72,8 @@ const Sidebar: React.FC = () => {
         width={320}
         title={
           <div className='flex justify-between'>
-            <p>Projects</p>
-            <button onClick={onClose}>
+            <p className='dark:text-white'>Projects</p>
+            <button className='dark:text-white' onClick={onClose}>
               <RxCross1 />
             </button>
           </div>
@@ -80,6 +83,7 @@ const Sidebar: React.FC = () => {
         onClose={onClose}
         open={open}
         key='drawer'
+        style={{ backgroundColor: theme === 'dark' ? 'black' : 'white' }}
       >
         {content}
       </Drawer>

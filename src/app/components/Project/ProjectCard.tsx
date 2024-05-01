@@ -1,4 +1,5 @@
 import useProjectsStore from '@/store/projects'
+import useThemeStore from '@/store/theme'
 import { Avatar, Card, Tooltip } from 'antd'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -16,6 +17,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const { projectName, createdDate, id } = project
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const theme = useThemeStore((state) => state.theme)
 
   // check if user is in home page
   const pathname = usePathname()
@@ -34,6 +36,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       exit={{ y: -300, opacity: 0 }}
     >
       <Card
+        style={{ backgroundColor: theme === 'dark' ? '#1d1616da' : 'white' }}
         className={`${
           isHome ? 'w-60 min-[375px]:w-72' : 'w-60 !ml-4'
         } shadow-md`}
@@ -69,7 +72,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </Link>
           }
           description={
-            <p>
+            <p className='dark:text-white'>
               <span className='text-slate-400 font-semibold'>Created: </span>{' '}
               {createdDate}
             </p>

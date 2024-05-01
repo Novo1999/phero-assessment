@@ -17,14 +17,14 @@ export async function generateStaticParams() {
 
 const ProjectDetailsPage = () => {
   return (
-    <section className='flex justify-start flex-col items-start gap-3 pt-12 min-h-full bg-gradient-to-r *:text-slate-800 from-teal-200 to-teal-500 absolute w-fit sm:w-[100%]'>
+    <section className='flex justify-start flex-col items-start gap-3 pt-12 min-h-full *:text-slate-800 bg-gradient-to-r from-teal-200 to-teal-500 dark:bg-gradient-to-r dark:from-gray-900 dark:to-slate-700 absolute w-fit sm:w-[100%]'>
       <ProjectDetailsContainer>
         <section className='flex justify-between'>
           <ProjectDetailsHeader />
           <AddTaskBtn />
         </section>
         <TaskManager />
-        <section className='shadow-md p-4 mt-12 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-400'>
+        <section className='shadow-md p-4 mt-12 rounded-lg bg-gradient-to-r max-h-80 overflow-y-auto from-cyan-200 to-cyan-400 below-task'>
           <div className='flex justify-between'>
             <p className='font-bold mt-2 flex items-start gap-2'>
               <HiUserGroup />

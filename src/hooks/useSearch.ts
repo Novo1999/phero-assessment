@@ -13,6 +13,7 @@ const useSearch = () => {
   const { projects } = useProjectsStore()
   const scope = useMenuAnimation(!!search)
   const currentProject = projects.find((project) => project.id === Number(id))
+
   const handleTaskClick = (task: Task) => {
     setModalOpen(true)
     setClickedTask(task)
