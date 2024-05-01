@@ -15,9 +15,12 @@ const ProjectEditForm = ({
   const { projects, updateProjectName } = useProjectsStore()
   const currentProject = projects.find((project) => project.id === id)
 
+  // submits the updated value
   const handleSubmit = (values: { title: string }) => {
     updateProjectName(id, values.title)
+    // reset field after updating
     form.resetFields()
+    // close the modal
     setModalOpen(false)
     toast.success('Edited project name successfully', {
       autoClose: 1000,

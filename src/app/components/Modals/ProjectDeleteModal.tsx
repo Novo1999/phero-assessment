@@ -13,12 +13,6 @@ const ProjectDeleteModal = ({
 }) => {
   const { deleteProject } = useProjectsStore()
 
-  const hideButton = {
-    style: {
-      display: 'none',
-    },
-  }
-
   const handleDelete = () => {
     deleteProject(projectId)
   }

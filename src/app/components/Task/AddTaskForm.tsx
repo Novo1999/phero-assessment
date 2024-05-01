@@ -1,8 +1,8 @@
 import useProjectsStore from '@/store/projects'
+import { TASK_STATUS } from '@/utils/constants'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Form, Input, Select } from 'antd'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
 
 const { Option } = Select
 
@@ -12,16 +12,12 @@ const AddTaskForm = () => {
   const currentProject = projects.find((project) => project.id === Number(id))
 
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (values: Task) => {
-    setLoading(true)
-
     addTask(Number(id), values)
+    // add activity of adding a new task after successfully adding a task
     addActivity(Number(id), `You added a new task ${values.title}`)
     form.resetFields()
-
-    setLoading(false)
   }
 
   return (
@@ -73,7 +69,7 @@ const AddTaskForm = () => {
         ]}
       >
         <Select mode='multiple' placeholder='Select assigned members'>
-          {/* Add options for assigned members */}
+          {/* options for assigned members */}
           {currentProject?.teamMembers.map((member) => (
             <Option key={member} value={member}>
               {member}
@@ -87,18 +83,13 @@ const AddTaskForm = () => {
         rules={[{ required: true, message: 'Please select status' }]}
       >
         <Select placeholder='Select status'>
-          <Option value='To Do'>To Do</Option>
-          <Option value='In Progress'>In Progress</Option>
-          <Option value='Done'>Done</Option>
+          <Option value={TASK_STATUS[0]}>{TASK_STATUS[0]}</Option>
+          <Option value={TASK_STATUS[1]}>{TASK_STATUS[1]}</Option>
+          <Option value={TASK_STATUS[2]}>{TASK_STATUS[2]}</Option>
         </Select>
       </Form.Item>
       <Form.Item>
-        <Button
-          type='primary'
-          htmlType='submit'
-          loading={loading}
-          icon={<PlusOutlined />}
-        >
+        <Button type='primary' htmlType='submit' icon={<PlusOutlined />}>
           Add Task
         </Button>
       </Form.Item>

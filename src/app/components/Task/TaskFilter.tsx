@@ -1,4 +1,5 @@
 import useProjectsStore from '@/store/projects'
+import { TASK_STATUS } from '@/utils/constants'
 import getUniqueAssignees from '@/utils/getUniqueAssignees '
 import { DatePicker, Select } from 'antd'
 import { Moment } from 'moment'
@@ -61,9 +62,9 @@ const TaskFilter = () => {
         value={selectedStatus}
         onChange={handleStatusChange}
         options={[
-          { value: 'To Do', label: 'To Do' },
-          { value: 'In Progress', label: 'In Progress' },
-          { value: 'Done', label: 'Done' },
+          { value: TASK_STATUS[0], label: TASK_STATUS[0] },
+          { value: TASK_STATUS[1], label: TASK_STATUS[1] },
+          { value: TASK_STATUS[2], label: TASK_STATUS[2] },
         ]}
       />
       <div className='block sm:hidden'>

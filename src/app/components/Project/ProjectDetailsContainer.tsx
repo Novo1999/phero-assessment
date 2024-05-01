@@ -13,12 +13,14 @@ const ProjectDetailsContainer = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
+      {/* mobile */}
       <motion.div
         className='text-black relative w-screen p-4 block lg:hidden'
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         {children}
       </motion.div>
+      {/* bigger display */}
       <motion.div
         className='text-black relative pl-12 hidden lg:block'
         initial={{ left: 0 }}

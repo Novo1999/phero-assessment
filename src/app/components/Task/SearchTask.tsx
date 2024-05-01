@@ -12,12 +12,12 @@ import TaskModal from '../Modals/TaskModal'
 const SearchTask = () => {
   const [search, setSearch] = useState('')
   const [searchResult, setSearchResult] = useState<Task[]>([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const [clickedTask, setClickedTask] = useState<Task>()
   const { id } = useParams()
   const { projects } = useProjectsStore()
   const scope = useMenuAnimation(!!search)
   const currentProject = projects.find((project) => project.id === Number(id))
-  const [modalOpen, setModalOpen] = useState(false)
-  const [clickedTask, setClickedTask] = useState<Task>()
 
   const handleTaskClick = (task: Task) => {
     setModalOpen(true)
@@ -33,15 +33,18 @@ const SearchTask = () => {
           task.title.toLowerCase().includes(search) ||
           task.description.toLowerCase().includes(search)
       )
+
     if (result) {
       setSearchResult(result)
     }
 
+    // empty search results when search is empty
     if (!search) {
       setSearchResult([])
     }
   }, [currentProject?.tasks, search])
 
+  // debounce the search for 300ms
   const debouncedSearch = useDebounce((value: string) => {
     setSearch(value.toLowerCase())
   }, 300)
@@ -102,6 +105,7 @@ const SearchTask = () => {
           </ul>
         )}
       </nav>
+      {/* task modal for the tasks in the search result */}
       <TaskModal
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}

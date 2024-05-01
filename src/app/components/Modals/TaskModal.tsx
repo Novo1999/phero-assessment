@@ -86,6 +86,7 @@ const TaskModal = ({
           Assigned team members:
         </p>
         <div>
+          {/* assigned members */}
           {assignedMembers?.map((member, index) => (
             <p key={index} className='mb-1'>
               {member}
@@ -93,6 +94,7 @@ const TaskModal = ({
           ))}
         </div>
       </div>
+      {/* task edit modal */}
       <TaskEditModal
         task={task}
         modalOpen={editModalOpen}

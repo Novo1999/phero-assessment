@@ -20,6 +20,7 @@ const Sidebar: React.FC = () => {
 
   let content = null
 
+  // loading state skeletons
   if (isLoading) {
     content = Array.from({ length: 10 }).map((_, index) => {
       return (
@@ -34,13 +35,17 @@ const Sidebar: React.FC = () => {
       )
     })
   }
+  // error
   if (!isLoading && isError) {
     content = <Error message='Could not get projects' />
   }
 
+  // no data
   if (!isLoading && !isError && data?.length === 0) {
     content = <EmptyResponse message='No projects found' />
   }
+
+  // has data
   if (!isLoading && !isError && data?.length > 0) {
     content = (
       <div className='flex flex-col gap-4'>

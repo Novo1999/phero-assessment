@@ -22,10 +22,11 @@ const ManageMembers = () => {
     label: member,
   }))
 
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const [selectedMembers, setSelectedMembers] = useState<string[]>([])
 
   const handleManageMembers = () => {
-    manageMembers(Number(id), selectedItems)
+    manageMembers(Number(id), selectedMembers)
+    // when changed are saved, close the select
     setIsOpen(false)
   }
 
@@ -48,8 +49,8 @@ const ManageMembers = () => {
           onBlur={() => setIsOpen(false)}
           mode='multiple'
           placeholder='Add or remove members'
-          value={selectedItems}
-          onChange={setSelectedItems}
+          value={selectedMembers}
+          onChange={setSelectedMembers}
           className='w-full max-w-48 max-h-48'
           options={teamMembers}
           popupClassName='absolute'

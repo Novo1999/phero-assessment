@@ -14,8 +14,10 @@ const { Meta } = Card
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const { projectName, createdDate, id } = project
-  const [modalOpen, setModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+
+  // check if user is in home page
   const pathname = usePathname()
   const isHome = pathname === '/'
 
@@ -43,7 +45,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           </Link>,
           <Tooltip key='edit' placement='top' title='Edit'>
             <BiEdit
-              onClick={() => setModalOpen(!modalOpen)}
+              onClick={() => setEditModalOpen(!editModalOpen)}
               className='text-base m-auto'
             />
           </Tooltip>,
@@ -76,8 +78,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
         {/* project edit modal */}
         <ProjectEditModal
           id={id}
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
+          modalOpen={editModalOpen}
+          setModalOpen={setEditModalOpen}
         />
       </Card>
       {/* project delete modal */}

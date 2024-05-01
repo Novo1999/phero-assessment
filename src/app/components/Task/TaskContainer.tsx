@@ -5,9 +5,13 @@ import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { TASK_STATUS } from '@/utils/constants'
 import { filterTasks } from '@/utils/filterTasks'
+import getFilteredTasksLength from '@/utils/getFilteredTasksLength'
 import { useParams } from 'next/navigation'
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 import StatusIcon from '../ui/StatusIcon'
+
+// for readability
+const ONE = 1
 
 const TaskContainer = () => {
   const { id } = useParams()
@@ -15,17 +19,21 @@ const TaskContainer = () => {
   const { open } = useSidebarStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
+  // function for controlling what happens after dragging and dropping a task from one status to another
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
     if (!destination) {
       return
     }
 
+    // get task id and new status from the result
     const taskId = Number(result.draggableId.split('-')[2])
     const newStatus = destination.droppableId.split('-')[1] as Task['status']
 
+    // if the user has dropped on the same status box, this will not fire 🔥, so unnecessary activities wont be created
     if (source.index !== destination.index) {
       reorderTask(Number(id), taskId, newStatus)
+      // activity if reorder is successful
       addActivity(
         Number(id),
         `You moved ${
@@ -42,6 +50,7 @@ const TaskContainer = () => {
       } xl:grid-cols-3 gap-4`}
     >
       <DragDropContext onDragEnd={onDragEnd}>
+        {/* mapping over 3 status to show the tasks for each status type */}
         {TASK_STATUS.map((status) => (
           <div key={status}>
             <Droppable droppableId={`droppable-${status}`} type='task'>
@@ -61,14 +70,9 @@ const TaskContainer = () => {
                   </p>
                   {/* show count of tasks */}
                   <p className='text-sm italic text-yellow-500'>
-                    {
-                      currentProject?.tasks
-                        .filter((task) => task.status === status)
-                        .filter((task) => filterTasks(task, filters)).length
-                    }{' '}
-                    {currentProject?.tasks
-                      .filter((task) => task.status === status)
-                      .filter((task) => filterTasks(task, filters)).length! > 1
+                    {getFilteredTasksLength(currentProject!, status, filters)}{' '}
+                    {getFilteredTasksLength(currentProject!, status, filters) >
+                    ONE
                       ? 'tasks'
                       : 'task'}
                   </p>

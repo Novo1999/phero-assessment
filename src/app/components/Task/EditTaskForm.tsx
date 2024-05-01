@@ -1,8 +1,9 @@
 import useProjectsStore from '@/store/projects'
+import { TASK_STATUS } from '@/utils/constants'
 import { Button, DatePicker, Form, Input, Select } from 'antd'
 import moment from 'moment'
 import { useParams } from 'next/navigation'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 
 const { Option } = Select
 
@@ -18,18 +19,15 @@ const EditTaskForm = ({
   const { id } = useParams()
 
   const currentProject = projects.find((project) => project.id === Number(id))
+
   const taskToEdit = currentProject?.tasks.find((task) => task.id === taskId)
 
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (values: Task) => {
-    setLoading(true)
-
     updateTask(Number(id), taskId, values)
 
-    setLoading(false)
-
+    // add activity of editing a task
     addActivity(
       Number(id),
       `You edited the task ${taskToEdit?.title} in the status box: ${taskToEdit?.status}`
@@ -38,7 +36,7 @@ const EditTaskForm = ({
     setModalOpen(false)
   }
 
-  // load the default values
+  // load the default values when form opens
   useEffect(() => {
     if (taskToEdit) {
       form.setFieldsValue({
@@ -125,13 +123,13 @@ const EditTaskForm = ({
         rules={[{ required: true, message: 'Please select status' }]}
       >
         <Select defaultValue={taskToEdit?.status} placeholder='Select status'>
-          <Option value='To Do'>To Do</Option>
-          <Option value='In Progress'>In Progress</Option>
-          <Option value='Done'>Done</Option>
+          <Option value={TASK_STATUS[0]}>{TASK_STATUS[0]}</Option>
+          <Option value={TASK_STATUS[1]}>{TASK_STATUS[1]}</Option>
+          <Option value={TASK_STATUS[2]}>{TASK_STATUS[2]}</Option>
         </Select>
       </Form.Item>
       <Form.Item>
-        <Button type='primary' htmlType='submit' loading={loading}>
+        <Button type='primary' htmlType='submit'>
           Update Task
         </Button>
       </Form.Item>

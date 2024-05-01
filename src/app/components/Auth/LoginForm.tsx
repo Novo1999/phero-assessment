@@ -9,9 +9,7 @@ import React from 'react'
 import { Bounce, toast } from 'react-toastify'
 
 const LoginForm: React.FC = () => {
-  const { users, setCurrentLoggedInUser, setError, error } = useUserStore(
-    (state) => state
-  )
+  const { users, setCurrentLoggedInUser, setError, error } = useUserStore()
   const router = useRouter()
 
   const onSubmit = (values: any) => {

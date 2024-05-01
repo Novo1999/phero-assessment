@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const RegisterForm: React.FC = () => {
-  const { users, addNewUser, setError, error } = useUserStore((state) => state)
+  const { users, addNewUser, setError, error } = useUserStore()
   const router = useRouter()
 
   const onSubmit = (values: any) => {
@@ -30,7 +30,6 @@ const RegisterForm: React.FC = () => {
           // validate the email field to check if email is valid as user types
           { validator: validateEmailField },
         ]}
-        validateStatus=''
       >
         <Input
           prefix={<UserOutlined className='site-form-item-icon' />}

@@ -8,23 +8,23 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+const charVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  reveal: {
+    opacity: 1,
+  },
+}
+
+const text = '🎯 Project Management Dashboard'
+
+const headingTextCharacters = splitString(text)
+
 const Navbar: React.FC = () => {
   const { open } = useSidebarStore()
   const pathname = usePathname()
   const isHome = pathname === '/'
-
-  const text = '🎯 Project Management Dashboard'
-
-  const headingTextCharacters = splitString(text)
-
-  const charVariants = {
-    hidden: {
-      opacity: 0,
-    },
-    reveal: {
-      opacity: 1,
-    },
-  }
 
   return (
     <>
@@ -42,6 +42,7 @@ const Navbar: React.FC = () => {
               animate={{ x: open ? '384px' : 0 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
+              {/* if user is not in home, he can go to the home page through the header text link */}
               {!isHome ? (
                 <Link href='/'>
                   <motion.div
@@ -66,6 +67,7 @@ const Navbar: React.FC = () => {
                   animate='reveal'
                   transition={{ staggerChildren: 0.1 }}
                 >
+                  {/* text animation */}
                   {headingTextCharacters.map((char, index) => (
                     <motion.span
                       variants={charVariants}
@@ -78,6 +80,7 @@ const Navbar: React.FC = () => {
                 </motion.p>
               )}
             </motion.div>
+            {/* profile */}
             <div className='flex items-center gap-2'>
               <p>Name</p>
               <Avatar shape='circle' size={32} icon={<UserOutlined />} />
@@ -85,7 +88,7 @@ const Navbar: React.FC = () => {
           </nav>
         </Header>
       </div>
-      {/* header */}
+      {/* header for mobile*/}
       <div className='block lg:hidden'>
         <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
           <div className='logo' />

@@ -23,6 +23,7 @@ const ProjectContainer = () => {
 
   let content = null
 
+  // loading state
   if (isLoading) {
     content = (
       <div className='min-h-[90vh] flex items-center'>
@@ -30,13 +31,17 @@ const ProjectContainer = () => {
       </div>
     )
   }
+  // error state
   if (!isLoading && isError) {
     content = <Error message='Could not get projects' />
   }
 
+  // if there are no projects
   if (!isLoading && !isError && data?.length === 0) {
     content = <EmptyResponse message='No projects found' />
   }
+
+  // if there are projects
   if (!isLoading && !isError && data?.length > 0) {
     content = (
       <div

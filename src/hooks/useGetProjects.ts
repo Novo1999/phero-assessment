@@ -18,6 +18,7 @@ const useGetProjects = () => {
     queryKey: ['projects'],
     queryFn: async () => {
       const projects = await getProjects()
+      // after getting the projects, load it in zustand store
       loadProjects(projects)
       return projects
     },
