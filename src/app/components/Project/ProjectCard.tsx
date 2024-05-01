@@ -1,5 +1,5 @@
 import useProjectsStore from '@/store/projects'
-import { Avatar, Card } from 'antd'
+import { Avatar, Card, Tooltip } from 'antd'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -23,25 +23,34 @@ const ProjectCard = ({ project }: { project: Project }) => {
   }
 
   return (
-    <motion.div whileHover={{ y: -2 }}>
+    <motion.div
+      whileHover={{ y: -2 }}
+      initial={{ opacity: 0, y: -200 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
       <Card
         className={`${
           isHome ? 'w-60 min-[375px]:w-72' : 'w-60 !ml-4'
         } shadow-md`}
         actions={[
           <Link key='view' href={`/project/${id}`}>
-            <GrFormView className='text-lg m-auto' />
+            <Tooltip placement='top' title='View'>
+              <GrFormView className='text-lg m-auto' />
+            </Tooltip>
           </Link>,
-          <BiEdit
-            onClick={() => setModalOpen(!modalOpen)}
-            className='text-base m-auto'
-            key='edit'
-          />,
-          <MdDelete
-            onClick={handleDeleteProject}
-            className='text-base m-auto hover:text-red-500'
-            key='delete'
-          />,
+          <Tooltip key='edit' placement='top' title='Edit'>
+            <BiEdit
+              onClick={() => setModalOpen(!modalOpen)}
+              className='text-base m-auto'
+            />
+          </Tooltip>,
+          <Tooltip key='edit' placement='top' title='Delete'>
+            <MdDelete
+              onClick={handleDeleteProject}
+              className='text-base m-auto hover:text-red-500'
+              key='delete'
+            />
+          </Tooltip>,
         ]}
       >
         <Meta

@@ -1,7 +1,9 @@
 'use client'
 import useGetProjects from '@/hooks/useGetProjects'
 import useProjectsStore from '@/store/projects'
+import useSidebarStore from '@/store/sidebar'
 import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 import EmptyResponse from '../ui/EmptyResponse'
 import Error from '../ui/ErrorResponse'
 import Loader from '../ui/Loading'
@@ -12,12 +14,18 @@ const ProjectContainer = () => {
   const pathname = usePathname()
   const isHome = pathname === '/'
   const { projects } = useProjectsStore()
+  const { toggleSidebar } = useSidebarStore()
+
+  // close sidebar on mount on homepage
+  useEffect(() => {
+    toggleSidebar(false)
+  }, [toggleSidebar])
 
   let content = null
 
   if (isLoading) {
     content = (
-      <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 sm:w-[40rem]'>
         {Array.from({ length: 12 }).map((_, index) => {
           return <Loader key={index} />
         })}

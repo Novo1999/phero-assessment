@@ -1,7 +1,7 @@
 import useProjectsStore from '@/store/projects'
 import getUniqueAssignees from '@/utils/getUniqueAssignees '
 import { DatePicker, Select } from 'antd'
-import moment, { Moment } from 'moment'
+import { Moment } from 'moment'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
 

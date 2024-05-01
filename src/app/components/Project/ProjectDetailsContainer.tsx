@@ -1,10 +1,15 @@
 'use client'
 import useSidebarStore from '@/store/sidebar'
 import { motion } from 'framer-motion'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 
 const ProjectDetailsContainer = ({ children }: { children: ReactNode }) => {
-  const { open } = useSidebarStore()
+  const { open, toggleSidebar } = useSidebarStore()
+
+  // open sidebar on mount
+  useEffect(() => {
+    toggleSidebar(true)
+  }, [toggleSidebar])
 
   return (
     <>

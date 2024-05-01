@@ -10,8 +10,6 @@ const TaskItem = ({ task }: { task: Task }) => {
   const [isDragging, setIsDragging] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
 
-  console.log(isDragging)
-
   const handleMouseDown = () => {
     setIsDragging(true)
   }

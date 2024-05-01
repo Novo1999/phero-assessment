@@ -4,13 +4,13 @@ import TaskItem from '@/app/components/Task/TaskItem'
 import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import { TASK_STATUS } from '@/utils/constants'
+import { filterTasks } from '@/utils/filterTasks'
 import { useParams } from 'next/navigation'
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 
 const TaskContainer = () => {
   const { id } = useParams()
   const { projects, reorderTask, addActivity, filters } = useProjectsStore()
-  console.log('🚀 ~ TaskContainer ~ filters:', filters)
   const { open } = useSidebarStore()
   const currentProject = projects.find((project) => project.id === Number(id))
 
@@ -61,30 +61,7 @@ const TaskContainer = () => {
                   <p className='text-slate-200'>{status}</p>
                   {currentProject?.tasks
                     .filter((task) => task.status === status)
-                    .filter((task) => {
-                      let includeTask = true
-                      console.log(filters.status, task.status)
-                      if (
-                        filters.status.length > 0 &&
-                        !filters.status.includes(task.status)
-                      ) {
-                        includeTask = false
-                      }
-
-                      if (
-                        filters.assignee.length > 0 &&
-                        !filters.assignee.includes(task.assignee)
-                      ) {
-                        includeTask = false
-                      }
-
-                      // Check due date filter
-                      if (filters.dueDate && task.dueDate !== filters.dueDate) {
-                        includeTask = false
-                      }
-
-                      return includeTask
-                    })
+                    .filter((task) => filterTasks(task, filters))
                     .map((task) => (
                       <TaskItem key={task.id} task={task} />
                     ))}
