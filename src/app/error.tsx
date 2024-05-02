@@ -1,5 +1,7 @@
 'use client'
 
+import { Button } from 'antd'
+
 export default function Error({
   error,
   reset,
@@ -8,9 +10,9 @@ export default function Error({
   reset: () => void
 }) {
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
+    <div className='min-h-screen flex flex-col justify-center items-center'>
+      <h2 className='text-red-500 italic'>Something went wrong!</h2>
+      <Button onClick={() => reset()}>Try again</Button>
     </div>
   )
 }

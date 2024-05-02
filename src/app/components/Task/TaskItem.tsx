@@ -31,7 +31,7 @@ const TaskItem = ({ task }: { task: Task }) => {
             ref={provided.innerRef}
             {...provided.draggableProps}
             className={`flex justify-between ${
-              isDragging ? 'border-2 rounded p-1' : ''
+              isDragging ? 'border-2 rounded p-1 scale-105' : ''
             } items-center`}
           >
             <p className='text-gray-200'>{title}</p>

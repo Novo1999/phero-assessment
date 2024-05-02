@@ -64,5 +64,10 @@ interface Project {
   createdDate: string
   tasks: Task[]
   teamMembers: string[]
-  recentActivities: string[]
+  recentActivities: [
+    {
+      activity: string
+      timestamp: Moment | string
+    }
+  ]
 }

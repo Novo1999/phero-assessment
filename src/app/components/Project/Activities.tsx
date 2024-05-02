@@ -1,7 +1,7 @@
 'use client'
 
 import useProjectsStore from '@/store/projects'
-import { motion } from 'framer-motion'
+import moment from 'moment'
 import { useParams } from 'next/navigation'
 
 const Activities = () => {
@@ -12,10 +12,15 @@ const Activities = () => {
 
   return (
     <div>
-      {currentProject?.recentActivities?.map((activity, index) => (
-        <p key={crypto.randomUUID()}>
-          {index + 1}. {activity}
-        </p>
+      {currentProject?.recentActivities?.map((item, index) => (
+        <div className='flex justify-between' key={index}>
+          <p>
+            {index + 1}. {item.activity}
+          </p>
+          <p className='italic text-sm text-blue-600'>
+            {moment(item.timestamp).format('YYYY-MM-DD HH:mm:ss')}
+          </p>
+        </div>
       ))}
     </div>
   )

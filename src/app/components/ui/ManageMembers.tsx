@@ -4,7 +4,7 @@ import useProjectsStore from '@/store/projects'
 import { Button, Select } from 'antd'
 import { motion } from 'framer-motion'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdManageAccounts } from 'react-icons/md'
 
 const ManageMembers = () => {
@@ -13,16 +13,20 @@ const ManageMembers = () => {
   const { manageMembers, addActivity } = useProjectsStore()
 
   const { data: projects } = useGetProjects()
+
   const currentProject = projects?.find(
     (project: Project) => project.id === Number(id)
   )
 
-  const teamMembers = currentProject?.teamMembers.map((member: string) => ({
-    value: member,
-    label: member,
-  }))
-
+  const [allTeamMembers, setAllTeamMembers] = useState<string[]>([])
   const [selectedMembers, setSelectedMembers] = useState<string[]>([])
+
+  useEffect(() => {
+    // populate the allTeamMembers state when the component mounts
+    if (currentProject) {
+      setAllTeamMembers(currentProject.teamMembers)
+    }
+  }, [currentProject])
 
   const handleManageMembers = () => {
     manageMembers(Number(id), selectedMembers)
@@ -41,7 +45,7 @@ const ManageMembers = () => {
       )
     }
 
-    // when changed are saved, close the select
+    // when changes are saved, close the select
     setIsOpen(false)
   }
 
@@ -69,7 +73,10 @@ const ManageMembers = () => {
           value={selectedMembers}
           onChange={setSelectedMembers}
           className='w-full max-w-48 max-h-48'
-          options={teamMembers}
+          options={allTeamMembers.map((member) => ({
+            value: member,
+            label: member,
+          }))}
         />
       </motion.div>
     </div>

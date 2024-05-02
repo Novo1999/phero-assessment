@@ -19,7 +19,6 @@ const AddTaskForm = ({
   const [form] = Form.useForm()
 
   const handleSubmit = (values: Task) => {
-    console.log(values.dueDate)
     addTask(Number(id), values)
     // add activity of adding a new task after successfully adding a task
     addActivity(Number(id), `You added a new task ${values.title}`)

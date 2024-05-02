@@ -180,9 +180,13 @@ const useProjectsStore = create<Projects>((set) => ({
           ...updatedProjects[projectIndex].recentActivities,
         ]
 
-        updatedRecentActivities.push(activity)
+        updatedRecentActivities.push({
+          activity,
+          timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+        })
 
-        updatedProjects[projectIndex].recentActivities = updatedRecentActivities
+        updatedProjects[projectIndex].recentActivities =
+          updatedRecentActivities as Project['recentActivities']
 
         return {
           ...state,
