@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Navbar for big screens */}
+      {/* navbar for big screens */}
       <div className='hidden lg:block '>
         <Header className='!px-0 shadow-md' style={{ height: '80px' }}>
           <div className='logo' />

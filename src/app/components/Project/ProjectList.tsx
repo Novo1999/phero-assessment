@@ -10,13 +10,10 @@ const ProjectList = () => {
   const { toggleSidebar, open } = useSidebarStore()
   const pathname = usePathname()
 
-  // Define the array of valid routes
   const validRoutes = ['/', '/register', '/login', '/project/*']
 
-  // Check if the pathname is a valid route
   const isValidRoute = validRoutes.includes(pathname)
 
-  // Show the sidebar only for valid routes
   return (
     <div className={`flex ${isValidRoute ? 'invisible' : 'visible'}`}>
       <motion.aside
