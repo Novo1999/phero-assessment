@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: 'Project management dashboard',
   description:
     'A project management dashboard built with Next.JS, React, Zustand, Tanstack query, antd',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
@@ -26,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark'>
       <body className={poppins.className}>
-        <link rel='icon' href='/favicon.ico' sizes='any' />
         <ReactQueryProvider>
           <ToastProvider>
             <AntdRegistry>
