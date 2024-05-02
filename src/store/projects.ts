@@ -102,8 +102,8 @@ const useProjectsStore = create<Projects>((set) => ({
 
         const updatedTasks = [...updatedProjects[projectIndex].tasks]
 
-        const formattedDueDate = moment(values.dueDate).format('YYYY-MM-DD')
-        const formattedDeadline = moment(values.deadline).format('YYYY-MM-DD')
+        const formattedDueDate = values.dueDate.format('YYYY-MM-DD')
+        const formattedDeadline = values.deadline.format('YYYY-MM-DD')
 
         updatedTasks.push({
           ...values,

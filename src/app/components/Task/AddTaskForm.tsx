@@ -3,10 +3,15 @@ import { TASK_STATUS } from '@/utils/constants'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Form, Input, Select } from 'antd'
 import { useParams } from 'next/navigation'
+import { Dispatch, SetStateAction } from 'react'
 
 const { Option } = Select
 
-const AddTaskForm = () => {
+const AddTaskForm = ({
+  setModalOpen,
+}: {
+  setModalOpen: Dispatch<SetStateAction<boolean>>
+}) => {
   const { id } = useParams()
   const { projects, addTask, addActivity } = useProjectsStore()
   const currentProject = projects.find((project) => project.id === Number(id))
@@ -14,10 +19,12 @@ const AddTaskForm = () => {
   const [form] = Form.useForm()
 
   const handleSubmit = (values: Task) => {
+    console.log(values.dueDate)
     addTask(Number(id), values)
     // add activity of adding a new task after successfully adding a task
     addActivity(Number(id), `You added a new task ${values.title}`)
     form.resetFields()
+    setModalOpen(false)
   }
 
   return (

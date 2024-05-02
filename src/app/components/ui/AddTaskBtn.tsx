@@ -37,7 +37,7 @@ const AddTaskBtn = () => {
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
       >
-        <AddTaskForm />
+        <AddTaskForm setModalOpen={setModalOpen} />
       </Modal>
     </>
   )

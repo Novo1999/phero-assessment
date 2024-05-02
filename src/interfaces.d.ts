@@ -51,8 +51,8 @@ interface Task {
   id: number
   title: string
   description: string
-  deadline: string
-  dueDate: string
+  deadline: Moment
+  dueDate: Moment
   assignee: string
   assignedMembers: string[]
   status: 'To Do' | 'In Progress' | 'Done'

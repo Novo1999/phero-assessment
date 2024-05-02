@@ -14,8 +14,6 @@ const useReorder = () => {
       return
     }
 
-    console.log(result)
-
     // get task id and new status from the result
     const taskId = Number(result.draggableId.split('-')[2])
     const newStatus = destination.droppableId.split('-')[1] as Task['status']
