@@ -23,19 +23,19 @@ const TaskContainer = () => {
   const onDragEnd = useReorder()
 
   return (
-    <div
-      className={`grid grid-cols-1 sm:grid-cols-2 ${
-        open ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
-      } xl:grid-cols-3 gap-4`}
-    >
-      <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 ${
+          open ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
+        } xl:grid-cols-3 gap-4`}
+      >
         {/* mapping over 3 status to show the tasks for each status type */}
         {TASK_STATUS.map((status) => (
           <div key={status}>
             <Droppable droppableId={`droppable-${status}`} type='task'>
               {(provided, snapshot) => (
                 <div
-                  className={`lg:w-60 xl:w-80 shadow-lg min-h-48 max-h-60 overflow-y-auto rounded-lg ${
+                  className={`lg:w-60 xl:w-80 shadow-lg min-h-48 max-h-60 status-box overflow-y-auto rounded-lg ${
                     snapshot.isDraggingOver
                       ? 'bg-gradient-to-r from-indigo-500 to-blue-500 transition-all duration-300 border-2 border-slate-700'
                       : 'bg-gradient-to-r from-blue-600 to-violet-600 '
@@ -68,8 +68,8 @@ const TaskContainer = () => {
             </Droppable>
           </div>
         ))}
-      </DragDropContext>
-    </div>
+      </div>
+    </DragDropContext>
   )
 }
 

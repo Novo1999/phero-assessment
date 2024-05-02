@@ -33,3 +33,19 @@
 .ant-drawer-body::-webkit-scrollbar-thumb:hover {
   background: #2d12c4;
 }
+
+.status-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.status-box::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.status-box::-webkit-scrollbar-thumb {
+  background: rgba(23, 234, 51, 0.676);
+}
+
+.status-box::-webkit-scrollbar-thumb:hover {
+  background: #21c30f;
+}

@@ -19,19 +19,18 @@ const TaskItem = ({ task }: { task: Task }) => {
   } = useTaskItemOperation(task)
 
   return (
-    <motion.div
+    <div
       className={`p-1 relative text-slate-800 hover:bg-blue-600 transition-colors duration-300 ${
         isDragging ? '' : 'border-2'
       } rounded shadow-lg mx-2 mt-2 cursor-pointer`}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       <Draggable draggableId={`draggable-${status}-${id}`} index={id}>
         {(provided) => (
           <div
             onClick={() => setModalOpen(true)}
-            {...provided.draggableProps}
             ref={provided.innerRef}
-            className={`flex justify-between  ${
+            {...provided.draggableProps}
+            className={`flex justify-between ${
               isDragging ? 'border-2 rounded p-1' : ''
             } items-center`}
           >
@@ -64,7 +63,7 @@ const TaskItem = ({ task }: { task: Task }) => {
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
       />
-    </motion.div>
+    </div>
   )
 }
 
