@@ -36,7 +36,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       exit={{ y: -300, opacity: 0 }}
     >
       <Card
-        style={{ backgroundColor: theme === 'dark' ? '#1d1616da' : 'white' }}
+        style={{ background: theme === 'dark' ? '#222831' : 'white' }}
         className={`${
           isHome ? 'w-60 min-[375px]:w-72' : 'w-60 !ml-4'
         } shadow-md`}
