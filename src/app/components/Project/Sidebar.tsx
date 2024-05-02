@@ -1,13 +1,11 @@
 'use client'
 import useGetProjects from '@/hooks/useGetProjects'
-import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import useProjectsStore from '@/store/projects'
 import useSidebarStore from '@/store/sidebar'
 import useThemeStore from '@/store/theme'
 import { Drawer } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
-import { BiLoader } from 'react-icons/bi'
 import { RxCross1 } from 'react-icons/rx'
 import EmptyResponse from '../ui/EmptyResponse'
 import Error from '../ui/ErrorResponse'
@@ -17,7 +15,6 @@ import ProjectCard from './ProjectCard'
 const Sidebar: React.FC = () => {
   const { data, isLoading, isError } = useGetProjects()
   const { projects } = useProjectsStore()
-  const { loaderRef, limit, hasMore } = useIntersectionObserver({ projects })
 
   const { open, toggleSidebar } = useSidebarStore()
 
@@ -55,7 +52,7 @@ const Sidebar: React.FC = () => {
     content = (
       <div className='flex flex-col gap-4'>
         <AnimatePresence mode='popLayout'>
-          {projects.slice(0, limit).map((project: Project) => (
+          {projects.map((project: Project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </AnimatePresence>
@@ -88,19 +85,6 @@ const Sidebar: React.FC = () => {
         style={{ backgroundColor: theme === 'dark' ? '#192232' : 'white' }}
       >
         {content}
-        {/* intersects this for more data */}
-        {hasMore && (
-          <div ref={loaderRef} className='flex justify-center relative top-2'>
-            <BiLoader className='animate-spin' />
-          </div>
-        )}
-        {/* shows message if there is no more data */}
-        {!hasMore && (
-          <>
-            <p className='relative text-center top-2'>End of projects</p>
-            <hr className='relative w-60 m-auto top-2' />
-          </>
-        )}
       </Drawer>
     </div>
   )
