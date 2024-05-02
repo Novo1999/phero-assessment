@@ -1,6 +1,6 @@
 'use client'
 import useTaskItemOperation from '@/hooks/useTaskItemOperation'
-import { Checkbox } from 'antd'
+import { Checkbox, Tooltip } from 'antd'
 import { motion } from 'framer-motion'
 import { Draggable } from 'react-beautiful-dnd'
 import { GrDrag } from 'react-icons/gr'
@@ -43,10 +43,16 @@ const TaskItem = ({ task }: { task: Task }) => {
               className='flex gap-2 items-center'
             >
               {status !== 'Done' && (
-                <Checkbox
-                  onChange={handleComplete}
-                  onClick={(e) => e.stopPropagation()}
-                />
+                <Tooltip
+                  key='checkbox'
+                  placement='top'
+                  title='Mark as completed'
+                >
+                  <Checkbox
+                    onChange={handleComplete}
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </Tooltip>
               )}
               <GrDrag className='text-slate-200' />
             </div>

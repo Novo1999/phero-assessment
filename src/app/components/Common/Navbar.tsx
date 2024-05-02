@@ -31,10 +31,10 @@ const Navbar: React.FC = () => {
   const pathname = usePathname()
   const isHome = pathname === '/'
 
-  const toggleTheme = useThemeStore((state) => state.toggleTheme)
-  const theme = useThemeStore((state) => state.theme)
-  console.log(theme)
+  const { toggleTheme } = useThemeStore()
+  const { theme } = useThemeStore()
 
+  // apply theme
   useEffect(() => {
     applyThemePreference(theme)
   }, [theme])

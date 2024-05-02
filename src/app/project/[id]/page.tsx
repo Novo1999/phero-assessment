@@ -15,6 +15,23 @@ export async function generateStaticParams() {
   return projects.map((project: Project) => ({ id: project.id.toString() }))
 }
 
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
+  const projects = await fetch(PROJECT_LIST_URL).then((res) => res.json())
+
+  const currentProject = projects.find(
+    (project: Project) => project.id === Number(id)
+  )
+
+  // get the name of the project
+  return {
+    title: currentProject?.projectName,
+  }
+}
+
 const ProjectDetailsPage = () => {
   return (
     <section className='flex justify-start flex-col items-start gap-3 pt-12 min-h-full *:text-slate-800 bg-gradient-to-r from-teal-200 to-teal-500 dark:bg-gradient-to-r dark:from-gray-900 dark:to-slate-700 absolute w-fit sm:w-[100%]'>

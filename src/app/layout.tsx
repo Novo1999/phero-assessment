@@ -13,8 +13,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'Programming hero assessment',
-  description: 'Created by create next app',
+  title: 'Project management dashboard',
+  description:
+    'A project management dashboard built with Next.JS, React, Zustand, Tanstack query, antd',
 }
 
 export default function RootLayout({
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark'>
       <body className={poppins.className}>
+        <link rel='icon' href='/favicon.ico' sizes='any' />
         <ReactQueryProvider>
           <ToastProvider>
             <AntdRegistry>
