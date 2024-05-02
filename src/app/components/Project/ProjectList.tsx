@@ -10,17 +10,15 @@ const ProjectList = () => {
   const { toggleSidebar, open } = useSidebarStore()
   const pathname = usePathname()
 
-  // the variable name speaks for itself ;)
-  const isHome_OR_isLogin_OR_isRegisterPage =
-    pathname === '/' || pathname === '/register' || pathname === '/login'
+  // Define the array of valid routes
+  const validRoutes = ['/', '/register', '/login', '/project/*']
 
-  // not showing the aside trigger for sidebar when user is in home or login or register page
+  // Check if the pathname is a valid route
+  const isValidRoute = validRoutes.includes(pathname)
+
+  // Show the sidebar only for valid routes
   return (
-    <div
-      className={`flex ${
-        isHome_OR_isLogin_OR_isRegisterPage ? 'invisible' : 'visible'
-      }`}
-    >
+    <div className={`flex ${isValidRoute ? 'invisible' : 'visible'}`}>
       <motion.aside
         initial={{ x: open ? -300 : 0, opacity: 0 }}
         animate={{
@@ -43,4 +41,5 @@ const ProjectList = () => {
     </div>
   )
 }
+
 export default ProjectList

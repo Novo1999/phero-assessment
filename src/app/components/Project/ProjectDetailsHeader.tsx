@@ -1,12 +1,19 @@
 'use client'
 
+import useGetProjects from '@/hooks/useGetProjects'
 import useProjectsStore from '@/store/projects'
-import { useParams } from 'next/navigation'
+import { notFound, useParams } from 'next/navigation'
 
 const ProjectDetailsHeader = () => {
   const { id } = useParams()
   const { projects } = useProjectsStore()
-  const currentProject = projects.find((project) => project.id === Number(id))
+  const { isLoading, isError } = useGetProjects()
+  const currentProject = projects?.find((project) => project.id === Number(id))
+
+  // show not found page if no project found
+  if (!isLoading && !isError && !currentProject) {
+    notFound()
+  }
 
   return (
     <div className='dark:text-white'>

@@ -17,7 +17,9 @@ const ProjectContainer = () => {
   const isHome = pathname === '/'
   const { projects } = useProjectsStore()
   const { toggleSidebar } = useSidebarStore()
-  const { loaderRef, limit, hasMore } = useIntersectionObserver({ projects })
+  const { loaderRef, limit, hasMore } = useIntersectionObserver({
+    projects: data,
+  })
 
   // close sidebar on mount on homepage
   useEffect(() => {

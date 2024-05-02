@@ -19,7 +19,7 @@ const SearchTask = () => {
 
   return (
     <div className='float-end my-4'>
-      <Search onChange={handleSearchChange} placeholder='input search text' />
+      <Search onChange={handleSearchChange} placeholder='Search Tasks' />
       <nav className='menu' ref={scope}>
         <li className='hidden'></li>
         {searchResult.length > 0 ? (
